@@ -3,47 +3,59 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
-	android:layout_margin="10dp">
+	android:layout_margin="5dp">
 
 	<com.google.android.material.card.MaterialCardView
+		android:id="@+id/materialCardView"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:cardBackgroundColor="@color/purple_500"
 		app:cardCornerRadius="12dp"
 		app:cardElevation="20dp">
 
-		<LinearLayout
+		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:orientation="vertical"
-			android:padding="10dp">
+			android:layout_height="match_parent"
+			android:padding="2dp">
 
 			<TextView
 				android:id="@+id/place_textview"
-				android:layout_width="match_parent"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:text="Place" />
+				android:text="Place"
+				app:layout_constraintHorizontal_weight="7"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent" />
 
-			<LinearLayout
-				android:layout_width="match_parent"
+			<TextView
+				android:id="@+id/url_textview"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal">
+				android:text="Url"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_weight="3"
+				app:layout_constraintTop_toTopOf="parent" />
 
-				<TextView
-					android:id="@+id/time_textview"
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="0.67"
-					android:text="Time" />
+			<TextView
+				android:id="@+id/time_textview"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="Time"
+				app:layout_constraintHorizontal_weight="7"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/place_textview" />
 
-				<TextView
-					android:id="@+id/scale_textview"
-					android:layout_width="0dp"
-					android:layout_height="wrap_content"
-					android:layout_weight="0.33"
-					android:text="Scale" />
-			</LinearLayout>
-		</LinearLayout>
+			<TextView
+				android:id="@+id/scale_textview"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:text="Scale"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintHorizontal_weight="3"
+				app:layout_constraintTop_toBottomOf="@+id/url_textview" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
 	</com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

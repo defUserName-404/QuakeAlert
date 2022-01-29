@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.def_username.quakealert.R;
 
-public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAdapter.EarthquakeListViewHolder> {
-	private final String[] places, times, scales;
-	private final Context context;
+import java.util.ArrayList;
 
-	public ShowEarthquakeAdapter(Context context, String[] places, String[] times, String[] scales) {
+public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAdapter.EarthquakeListViewHolder> {
+	private final Context context;
+	private final ArrayList<String> places, times, scales;
+
+	public ShowEarthquakeAdapter(Context context, ArrayList<String> places, ArrayList<String> times, ArrayList<String> scales) {
 		this.context = context;
 		this.places = places;
 		this.times = times;
@@ -33,24 +35,25 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 
 	@Override
 	public void onBindViewHolder(@NonNull EarthquakeListViewHolder holder, int position) {
-		holder.place.setText(places[position]);
-		holder.time.setText(times[position]);
-		holder.scale.setText(scales[position]);
+		holder.place.setText(places.get(position));
+		holder.time.setText(times.get(position));
+		holder.scale.setText(scales.get(position));
 	}
 
 	@Override
 	public int getItemCount() {
-		return places.length;
+		return places.size();
 	}
 
 	public static class EarthquakeListViewHolder extends RecyclerView.ViewHolder {
-		private final TextView place, time, scale;
+		private final TextView place, time, scale, url;
 
 		public EarthquakeListViewHolder(@NonNull View itemView) {
 			super(itemView);
 			place = itemView.findViewById(R.id.place_textview);
 			time = itemView.findViewById(R.id.time_textview);
 			scale = itemView.findViewById(R.id.scale_textview);
+			url = itemView.findViewById(R.id.url_textview);
 		}
 	}
 }
