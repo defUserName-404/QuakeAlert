@@ -17,35 +17,39 @@ import com.def_username.quakealert.viewmodel.ShowEarthquakeAdapter;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class ShowEarthquakesFragment extends Fragment {
-	private RecyclerView recyclerView;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
+
 		View rootView = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
-		recyclerView = rootView.findViewById(R.id.earthquakeList_recyclerview);
+		RecyclerView recyclerView = rootView.findViewById(R.id.earthquakeList_recyclerview);
 
 		ArrayList<Earthquake> earthquakes = ParseData.extractEarthquakes();
 		ArrayList<String> places = new ArrayList<>();
+		ArrayList<String> placesOffset = new ArrayList<>();
 		ArrayList<String> times = new ArrayList<>();
 		ArrayList<String> scales = new ArrayList<>();
 
 		for (Earthquake earthquake : earthquakes) {
-			// Create a new Date object from the time in milliseconds of the earthquake
 			Date dateObject = new Date(earthquake.getTimeInMilliseconds());
-			// Format the date string (i.e. "Mar 3, 1984")
-			String formattedDate = ParseData.formatDate(dateObject);
-			String formattedTime = ParseData.formatTime(dateObject);
+			String originalLocation = earthquake.getLocation();
+			String formattedDate = ParseData.formatDate(dateObject).toUpperCase(Locale.getDefault());
+			String formattedTime = ParseData.formatTime(dateObject).toUpperCase(Locale.getDefault());
+			String magnitude = ParseData.formatMagnitude(earthquake.getMagnitude());
+			String primaryLocation = ParseData.formatLocation(originalLocation)[0];
+			String locationOffset = ParseData.formatLocation(originalLocation)[1];
 
-			places.add(earthquake.getLocation());
-			times.add(formattedDate + " " + formattedTime);
-			scales.add(Double.toString(earthquake.getMagnitude()));
+			places.add(primaryLocation);
+			placesOffset.add(locationOffset);
+			times.add(formattedDate + "\n" + formattedTime);
+			scales.add(magnitude);
 		}
 
 		ShowEarthquakeAdapter showEarthquakeAdapter =
-				new ShowEarthquakeAdapter(rootView.getContext(), places, times, scales);
+				new ShowEarthquakeAdapter(rootView.getContext(), places, placesOffset, times, scales);
 		recyclerView.setAdapter(showEarthquakeAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 

@@ -1,6 +1,5 @@
 <resources>
 	<string name="app_name">QuakeAlert</string>
 	<string name="search">Search</string>
-	<string name="show_recent_earthquakes">Show Recent Earthquakes</string>
-
+	<string name="show_recent_earthquakes">Recent Earthquakes</string>
 </resources>
