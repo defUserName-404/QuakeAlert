@@ -25,7 +25,8 @@
 		android:layout_height="0dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/showRecent_textview">
+		app:layout_constraintTop_toBottomOf="@+id/showRecent_textview"
+		app:layout_constraintBottom_toBottomOf="parent">
 	</androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
