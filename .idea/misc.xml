@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.22864583333333333" />
+        <entry key="app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.1385" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/magnitude_circle.xml" value="0.2405" />
@@ -12,6 +13,7 @@
         <entry key="app/src/main/res/layout/earthquake_detail.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/layout/fragment_show_earthquakes.xml" value="0.38358974358974357" />
         <entry key="app/src/main/res/layout/fragment_show_recents.xml" value="0.38958333333333334" />
+        <entry key="app/src/main/res/menu/topbar.xml" value="0.25" />
       </map>
     </option>
   </component>
