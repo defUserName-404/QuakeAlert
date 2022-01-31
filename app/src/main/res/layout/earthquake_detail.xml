@@ -53,6 +53,8 @@
 					android:layout_marginStart="10dp"
 					android:layout_weight="0.6"
 					android:text="Place"
+					android:maxLines="1"
+					android:ellipsize="end"
 					android:textSize="16sp"
 					android:textStyle="bold" />
 
