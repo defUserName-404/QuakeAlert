@@ -13,6 +13,7 @@
 		android:layout_height="wrap_content"
 		android:text="@string/show_recent_earthquakes"
 		android:textStyle="bold"
+		android:layout_marginStart="15dp"
 		android:textSize="15sp"
 		android:fontFamily="sans-serif"
 		app:layout_constraintEnd_toEndOf="parent"

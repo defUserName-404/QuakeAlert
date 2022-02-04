@@ -6,13 +6,17 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.android.volley.Request;
+import com.android.volley.toolbox.StringRequest;
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.ParseData;
+import com.def_username.quakealert.model.SingletonRequestData;
 import com.def_username.quakealert.viewmodel.ShowEarthquakeAdapter;
 
 import java.util.ArrayList;
@@ -23,9 +27,10 @@ public class ShowEarthquakesFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-
 		View rootView = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
 		RecyclerView recyclerView = rootView.findViewById(R.id.earthquakeList_recyclerview);
+
+		sendRequest();
 
 		ArrayList<Earthquake> earthquakes = ParseData.extractEarthquakes();
 		ArrayList<String> places = new ArrayList<>();
@@ -95,5 +100,15 @@ public class ShowEarthquakesFragment extends Fragment {
 		}
 
 		return magnitudeColorResourceId;
+	}
+
+	private void sendRequest() {
+		String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02&minmagnitude=4";
+
+		StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+				ParseData::setSampleJsonResponse,
+				error -> Log.e("Network Error", "Can't access URL"));
+
+		SingletonRequestData.getInstance(this.getContext()).addToRequestQueue(stringRequest);
 	}
 }
