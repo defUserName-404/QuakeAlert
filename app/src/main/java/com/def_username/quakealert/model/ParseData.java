@@ -42,7 +42,7 @@ public class ParseData {
 				earthquakes.add(earthquake);
 			}
 		} catch (JSONException e) {
-			Log.e("QueryUtils", "Problem parsing the earthquake JSON results", e);
+			Log.e("Parsing Error", "Problem parsing the earthquake JSON results", e);
 		}
 
 		return earthquakes;

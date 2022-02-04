@@ -24,13 +24,19 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ShowEarthquakesFragment extends Fragment {
+	private View root;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
-		RecyclerView recyclerView = rootView.findViewById(R.id.earthquakeList_recyclerview);
-
+		root = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
 		sendRequest();
+
+		return root;
+	}
+
+	private void onResponseReceived() {
+		RecyclerView recyclerView = root.findViewById(R.id.earthquakeList_recyclerview);
 
 		ArrayList<Earthquake> earthquakes = ParseData.extractEarthquakes();
 		ArrayList<String> places = new ArrayList<>();
@@ -54,12 +60,22 @@ public class ShowEarthquakesFragment extends Fragment {
 		}
 
 		ShowEarthquakeAdapter showEarthquakeAdapter =
-				new ShowEarthquakeAdapter(rootView.getContext(), places, placesOffset, times, scales);
+				new ShowEarthquakeAdapter(root.getContext(), places, placesOffset, times, scales);
 		recyclerView.setAdapter(showEarthquakeAdapter);
-
 		recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+	}
 
-		return rootView;
+	private void sendRequest() {
+		String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02&minmagnitude=4";
+
+		StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+				response -> {
+					ParseData.setSampleJsonResponse(response);
+					onResponseReceived();
+				},
+				error -> Log.e("Network Error", "Can't access URL"));
+
+		SingletonRequestData.getInstance(this.getContext()).addToRequestQueue(stringRequest);
 	}
 
 	public static int getMagnitudeBGColor(double magnitude) {
@@ -100,15 +116,5 @@ public class ShowEarthquakesFragment extends Fragment {
 		}
 
 		return magnitudeColorResourceId;
-	}
-
-	private void sendRequest() {
-		String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02&minmagnitude=4";
-
-		StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-				ParseData::setSampleJsonResponse,
-				error -> Log.e("Network Error", "Can't access URL"));
-
-		SingletonRequestData.getInstance(this.getContext()).addToRequestQueue(stringRequest);
 	}
 }
