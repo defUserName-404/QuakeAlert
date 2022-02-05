@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.Request;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.ParseData;
@@ -38,14 +38,14 @@ public class ShowEarthquakesFragment extends Fragment {
 	private void sendRequest() {
 		String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02&minmagnitude=4";
 
-		StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
 				response -> {
 					ParseData.setSampleJsonResponse(response);
 					onResponseReceived();
 				},
 				error -> Log.e("Network Error", "Can't access URL"));
 
-		SingletonRequestData.getInstance(this.getContext()).addToRequestQueue(stringRequest);
+		SingletonRequestData.getInstance(this.getContext()).addToRequestQueue(jsonRequest);
 	}
 
 	private void onResponseReceived() {

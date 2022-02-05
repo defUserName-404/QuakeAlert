@@ -15,9 +15,9 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ParseData {
-	private static String SAMPLE_RESPONSE = "";
+	private static JSONObject SAMPLE_RESPONSE;
 
-	public static void setSampleJsonResponse(String response) {
+	public static void setSampleJsonResponse(JSONObject response) {
 		SAMPLE_RESPONSE = response;
 	}
 
@@ -29,8 +29,7 @@ public class ParseData {
 		ArrayList<Earthquake> earthquakes = new ArrayList<>();
 
 		try {
-			JSONObject baseObject = new JSONObject(SAMPLE_RESPONSE);
-			JSONArray earthquakeArray = baseObject.getJSONArray("features");
+			JSONArray earthquakeArray = SAMPLE_RESPONSE.getJSONArray("features");
 
 			for (int i = 0; i < earthquakeArray.length(); i++) {
 				JSONObject currentEarthquake = earthquakeArray.getJSONObject(i);
@@ -52,11 +51,13 @@ public class ParseData {
 
 	public static String formatDate(Date dateObject) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd yyyy", Locale.getDefault());
+
 		return dateFormat.format(dateObject);
 	}
 
 	public static String formatTime(Date dateObject) {
 		SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
+		
 		return timeFormat.format(dateObject);
 	}
 
