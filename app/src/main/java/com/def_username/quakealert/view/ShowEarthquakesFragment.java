@@ -18,6 +18,7 @@ import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.ParseData;
 import com.def_username.quakealert.model.SingletonRequestData;
 import com.def_username.quakealert.viewmodel.ShowEarthquakeAdapter;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -25,11 +26,13 @@ import java.util.Locale;
 
 public class ShowEarthquakesFragment extends Fragment {
 	private View root;
+	private LinearProgressIndicator mLinearProgressIndicatorRequestLoading;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 							 Bundle savedInstanceState) {
 		root = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
+		mLinearProgressIndicatorRequestLoading = root.findViewById(R.id.networkConnectivity_mProgressIndicator);
 		sendRequest();
 
 		return root;
@@ -41,6 +44,7 @@ public class ShowEarthquakesFragment extends Fragment {
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
 				response -> {
 					ParseData.setSampleJsonResponse(response);
+					mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
 					onResponseReceived();
 				},
 				error -> Log.e("Network Error", "Can't access URL"));
