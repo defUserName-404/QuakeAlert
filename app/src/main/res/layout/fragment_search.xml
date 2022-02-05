@@ -77,11 +77,21 @@
 	</LinearLayout>
 
 	<com.google.android.material.button.MaterialButton
+		android:id="@+id/mButton_SearchEarthquakes"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/search"
 		app:cornerRadius="15dp"
 		app:icon="@drawable/ic_baseline_double_arrow_24"
 		app:iconGravity="textEnd" />
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/earthquakeList_recyclerview"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/showRecent_textview" />
 
 </LinearLayout>
