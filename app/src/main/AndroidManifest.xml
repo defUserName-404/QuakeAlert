@@ -14,7 +14,8 @@
 		android:theme="@style/Theme.QuakeAlert">
 		<activity
 			android:name=".view.SearchActivity"
-			android:exported="false" />
+			android:exported="false"
+			android:parentActivityName=".view.MainActivity" />
 		<activity
 			android:name=".view.MainActivity"
 			android:exported="true"
