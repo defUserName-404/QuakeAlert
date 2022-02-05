@@ -5,6 +5,7 @@
 		android:id="@+id/searchMenuItem"
 		android:icon="@drawable/icons8_search_64"
 		android:title="Search"
+		android:onClick="onSearchMenuClicked"
 		app:showAsAction="always" />
 	<item
 		android:id="@+id/settingsMenuItem"
