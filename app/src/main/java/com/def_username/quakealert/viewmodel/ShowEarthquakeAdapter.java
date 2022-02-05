@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.def_username.quakealert.R;
-import com.def_username.quakealert.view.ShowEarthquakesFragment;
+import com.def_username.quakealert.model.ParseData;
 
 import java.util.ArrayList;
 
@@ -43,7 +43,7 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 		holder.time.setText(times.get(position));
 		String magnitude = scales.get(position);
 		holder.scale.setText(magnitude);
-		holder.scale.setBackgroundResource(ShowEarthquakesFragment.getMagnitudeBGColor(Double.parseDouble(magnitude)));
+		holder.scale.setBackgroundResource(ParseData.setMagnitudeBGColor(Double.parseDouble(magnitude)));
 	}
 
 	@Override
