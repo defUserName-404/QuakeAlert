@@ -62,6 +62,7 @@ public class ParseData {
 	}
 
 	public static String formatMagnitude(double magnitude) {
+
 		return new DecimalFormat("0.0").format(magnitude);
 	}
 
@@ -78,7 +79,20 @@ public class ParseData {
 			primaryLocation = originalLocation;
 		}
 
+		// Hardcoding to fix the typo in USGS response
+		if (primaryLocation.contains("P?hala"))
+			primaryLocation = "Pahala, Hawaii";
+
+		primaryLocation = capitalizeFirstCharacter(primaryLocation);
+
 		return new String[]{primaryLocation, locationOffset};
+	}
+
+	private static String capitalizeFirstCharacter(String string) {
+		if (string == null || string.isEmpty())
+			return string;
+
+		return string.substring(0, 1).toUpperCase() + string.substring(1);
 	}
 
 	public static int setMagnitudeBGColor(double magnitude) {

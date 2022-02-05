@@ -36,7 +36,7 @@ public class ShowEarthquakesFragment extends Fragment {
 	}
 
 	private void sendRequest() {
-		String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2014-01-01&endtime=2014-01-02&minmagnitude=4";
+		String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2022-02-04&endtime=2022-02-05&minmagnitude=1&orderby=time-asc";
 
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
 				response -> {
