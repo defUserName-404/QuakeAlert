@@ -15,7 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
-import com.def_username.quakealert.model.ParseData;
+import com.def_username.quakealert.viewmodel.ParseData;
 import com.def_username.quakealert.model.SingletonRequestData;
 import com.def_username.quakealert.viewmodel.ShowEarthquakeAdapter;
 import com.google.android.material.progressindicator.LinearProgressIndicator;

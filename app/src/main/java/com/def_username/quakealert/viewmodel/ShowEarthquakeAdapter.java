@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.def_username.quakealert.R;
-import com.def_username.quakealert.model.ParseData;
 
 import java.util.ArrayList;
 

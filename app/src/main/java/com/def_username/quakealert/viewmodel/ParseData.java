@@ -1,8 +1,9 @@
-package com.def_username.quakealert.model;
+package com.def_username.quakealert.viewmodel;
 
 import android.util.Log;
 
 import com.def_username.quakealert.R;
+import com.def_username.quakealert.model.Earthquake;
 
 import org.json.JSONArray;
 import org.json.JSONException;
