@@ -26,15 +26,6 @@ public class SearchFragment extends Fragment {
 		initializeViews(rootView);
 
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
-			LinearLayout linearLayout = rootView.findViewById(R.id.LinearLayout_SearchOptions);
-			MaterialButton mButtonDropdownArrow = rootView.findViewById(R.id.mButton_DropDownArrow);
-			linearLayout.setVisibility(View.GONE);
-			mButtonDropdownArrow.setVisibility(View.VISIBLE);
-			mButtonDropdownArrow.setOnClickListener(lst -> {
-				linearLayout.setVisibility(View.VISIBLE);
-				mButtonDropdownArrow.setVisibility(View.GONE);
-			});
-
 			ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 			extractAndSendSearchRequest();
 			responseProcessing.sendRequest();

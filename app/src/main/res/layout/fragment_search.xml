@@ -1,142 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:baselineAligned="false"
-	android:orientation="vertical"
 	android:padding="3dp"
-	tools:context=".view.SearchFragment">
+	app:layoutDescription="@xml/fragment_search_scene">
 
-	<LinearLayout
-		android:id="@+id/LinearLayout_SearchOptions"
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/textInputLayout"
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:orientation="vertical">
+		app:boxCornerRadiusBottomEnd="10dp"
+		app:boxCornerRadiusBottomStart="10dp"
+		app:boxCornerRadiusTopEnd="10dp"
+		app:boxCornerRadiusTopStart="10dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:startIconDrawable="@drawable/ic_baseline_edit_location_24">
 
-		<com.google.android.material.textfield.TextInputLayout
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/mTextInputEditText_Location"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			app:boxCornerRadiusBottomEnd="10dp"
-			app:boxCornerRadiusBottomStart="10dp"
-			app:boxCornerRadiusTopEnd="10dp"
-			app:boxCornerRadiusTopStart="10dp"
-			app:startIconDrawable="@drawable/ic_baseline_edit_location_24">
+			android:hint="Location"
+			android:inputType="text" />
 
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/mTextInputEditText_Location"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:hint="Location"
-				android:inputType="text" />
+	</com.google.android.material.textfield.TextInputLayout>
 
-		</com.google.android.material.textfield.TextInputLayout>
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/textInputLayout2"
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginEnd="1.5dp"
+		app:boxCornerRadiusBottomEnd="10dp"
+		app:boxCornerRadiusBottomStart="10dp"
+		app:boxCornerRadiusTopEnd="10dp"
+		app:boxCornerRadiusTopStart="10dp"
+		app:layout_constraintEnd_toStartOf="@+id/textInputLayout3"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+		app:startIconDrawable="@drawable/ic_baseline_square_foot_24">
 
-		<LinearLayout
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/mTextInputEditText_MinimumMagnitude"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:baselineAligned="false"
-			android:gravity="center"
-			android:orientation="horizontal">
+			android:hint="Magnitude(Min)"
+			android:inputType="number" />
 
-			<com.google.android.material.textfield.TextInputLayout
-				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginEnd="2.5dp"
-				android:layout_weight="0.5"
-				app:boxCornerRadiusBottomEnd="10dp"
-				app:boxCornerRadiusBottomStart="10dp"
-				app:boxCornerRadiusTopEnd="10dp"
-				app:boxCornerRadiusTopStart="10dp"
-				app:startIconDrawable="@drawable/ic_baseline_square_foot_24">
+	</com.google.android.material.textfield.TextInputLayout>
 
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/mTextInputEditText_MinimumMagnitude"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="Magnitude(Min)"
-					android:inputType="number" />
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/textInputLayout3"
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_marginStart="1.5dp"
+		app:boxCornerRadiusBottomEnd="10dp"
+		app:boxCornerRadiusBottomStart="10dp"
+		app:boxCornerRadiusTopEnd="10dp"
+		app:boxCornerRadiusTopStart="10dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toEndOf="@+id/textInputLayout2"
+		app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+		app:startIconDrawable="@drawable/ic_baseline_square_foot_24">
 
-			</com.google.android.material.textfield.TextInputLayout>
-
-			<com.google.android.material.textfield.TextInputLayout
-				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-				android:layout_width="0dp"
-				android:layout_height="wrap_content"
-				android:layout_marginEnd="2.5dp"
-				android:layout_weight="0.5"
-				app:boxCornerRadiusBottomEnd="10dp"
-				app:boxCornerRadiusBottomStart="10dp"
-				app:boxCornerRadiusTopEnd="10dp"
-				app:boxCornerRadiusTopStart="10dp"
-				app:startIconDrawable="@drawable/ic_baseline_square_foot_24">
-
-				<com.google.android.material.textfield.TextInputEditText
-					android:id="@+id/mTextInputEditText_MaximumMagnitude"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="Magnitude(Max)"
-					android:inputType="number" />
-
-			</com.google.android.material.textfield.TextInputLayout>
-
-		</LinearLayout>
-
-		<com.google.android.material.textfield.TextInputLayout
-			android:id="@+id/mTextInputLayout_DatePicker"
-			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/mTextInputEditText_MaximumMagnitude"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginStart="2.5dp"
-			app:boxCornerRadiusBottomEnd="10dp"
-			app:boxCornerRadiusBottomStart="10dp"
-			app:boxCornerRadiusTopEnd="10dp"
-			app:boxCornerRadiusTopStart="10dp"
-			app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
+			android:hint="Magnitude(Max)"
+			android:inputType="number" />
 
-			<com.google.android.material.textfield.TextInputEditText
-				android:id="@+id/mTextInputEditText_Date"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:clickable="true"
-				android:focusable="false"
-				android:hint="Pick Date"
-				android:inputType="date" />
+	</com.google.android.material.textfield.TextInputLayout>
 
-		</com.google.android.material.textfield.TextInputLayout>
+	<com.google.android.material.textfield.TextInputLayout
+		android:id="@+id/mTextInputLayout_DatePicker"
+		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:boxCornerRadiusBottomEnd="10dp"
+		app:boxCornerRadiusBottomStart="10dp"
+		app:boxCornerRadiusTopEnd="10dp"
+		app:boxCornerRadiusTopStart="10dp"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+		app:startIconDrawable="@drawable/ic_baseline_calendar_today_24">
 
-		<com.google.android.material.button.MaterialButton
-			android:id="@+id/mButton_SearchEarthquakes"
+		<com.google.android.material.textfield.TextInputEditText
+			android:id="@+id/mTextInputEditText_Date"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:text="@string/search"
-			app:cornerRadius="15dp"
-			app:icon="@drawable/ic_baseline_double_arrow_24"
-			app:iconGravity="textEnd" />
+			android:clickable="true"
+			android:focusable="false"
+			android:hint="Pick Date"
+			android:inputType="date" />
 
-	</LinearLayout>
+	</com.google.android.material.textfield.TextInputLayout>
 
 	<com.google.android.material.button.MaterialButton
-		android:id="@+id/mButton_DropDownArrow"
-		android:layout_width="wrap_content"
+		android:id="@+id/mButton_SearchEarthquakes"
+		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:layout_gravity="center"
-		android:visibility="gone"
-		app:icon="@drawable/ic_baseline_arrow_drop_down_24"
-		android:backgroundTint="#00000000"
-		app:iconSize="48dp"
-		app:iconTint="#646464" />
+		android:text="@string/search"
+		app:cornerRadius="10dp"
+		app:icon="@drawable/ic_baseline_double_arrow_24"
+		app:iconGravity="textEnd"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/mTextInputLayout_DatePicker" />
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/earthquakeList_recyclerview"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		app:layout_constraintBottom_toBottomOf="parent"
+		android:layout_marginTop="10dp"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/showRecent_textview" />
+		app:layout_constraintTop_toBottomOf="@+id/mButton_SearchEarthquakes" />
 
-</LinearLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
