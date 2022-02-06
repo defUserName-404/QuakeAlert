@@ -9,58 +9,88 @@
 	android:padding="3dp"
 	tools:context=".view.SearchFragment">
 
-	<com.google.android.material.textfield.TextInputLayout
-		style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:boxCornerRadiusBottomEnd="10dp"
-		app:boxCornerRadiusBottomStart="10dp"
-		app:boxCornerRadiusTopEnd="10dp"
-		app:boxCornerRadiusTopStart="10dp"
-		app:startIconDrawable="@drawable/ic_baseline_edit_location_24">
-
-		<com.google.android.material.textfield.TextInputEditText
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:hint="Location"
-			android:inputType="text" />
-
-	</com.google.android.material.textfield.TextInputLayout>
-
 	<LinearLayout
+		android:id="@+id/LinearLayout_SearchOptions"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
-		android:baselineAligned="false"
-		android:gravity="center"
-		android:orientation="horizontal">
+		android:orientation="vertical">
 
 		<com.google.android.material.textfield.TextInputLayout
 			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-			android:layout_width="0dp"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_marginEnd="2.5dp"
-			android:layout_weight="0.5"
 			app:boxCornerRadiusBottomEnd="10dp"
 			app:boxCornerRadiusBottomStart="10dp"
 			app:boxCornerRadiusTopEnd="10dp"
 			app:boxCornerRadiusTopStart="10dp"
-			app:startIconDrawable="@drawable/ic_baseline_square_foot_24">
+			app:startIconDrawable="@drawable/ic_baseline_edit_location_24">
 
 			<com.google.android.material.textfield.TextInputEditText
+				android:id="@+id/mTextInputEditText_Location"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:hint="Magnitude"
-				android:inputType="number" />
+				android:hint="Location"
+				android:inputType="text" />
 
 		</com.google.android.material.textfield.TextInputLayout>
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:baselineAligned="false"
+			android:gravity="center"
+			android:orientation="horizontal">
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="2.5dp"
+				android:layout_weight="0.5"
+				app:boxCornerRadiusBottomEnd="10dp"
+				app:boxCornerRadiusBottomStart="10dp"
+				app:boxCornerRadiusTopEnd="10dp"
+				app:boxCornerRadiusTopStart="10dp"
+				app:startIconDrawable="@drawable/ic_baseline_square_foot_24">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/mTextInputEditText_MinimumMagnitude"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="Magnitude(Min)"
+					android:inputType="number" />
+
+			</com.google.android.material.textfield.TextInputLayout>
+
+			<com.google.android.material.textfield.TextInputLayout
+				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginEnd="2.5dp"
+				android:layout_weight="0.5"
+				app:boxCornerRadiusBottomEnd="10dp"
+				app:boxCornerRadiusBottomStart="10dp"
+				app:boxCornerRadiusTopEnd="10dp"
+				app:boxCornerRadiusTopStart="10dp"
+				app:startIconDrawable="@drawable/ic_baseline_square_foot_24">
+
+				<com.google.android.material.textfield.TextInputEditText
+					android:id="@+id/mTextInputEditText_MaximumMagnitude"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:hint="Magnitude(Max)"
+					android:inputType="number" />
+
+			</com.google.android.material.textfield.TextInputLayout>
+
+		</LinearLayout>
 
 		<com.google.android.material.textfield.TextInputLayout
 			android:id="@+id/mTextInputLayout_DatePicker"
 			style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-			android:layout_width="0dp"
+			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_marginStart="2.5dp"
-			android:layout_weight="0.5"
 			app:boxCornerRadiusBottomEnd="10dp"
 			app:boxCornerRadiusBottomStart="10dp"
 			app:boxCornerRadiusTopEnd="10dp"
@@ -78,16 +108,27 @@
 
 		</com.google.android.material.textfield.TextInputLayout>
 
+		<com.google.android.material.button.MaterialButton
+			android:id="@+id/mButton_SearchEarthquakes"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="@string/search"
+			app:cornerRadius="15dp"
+			app:icon="@drawable/ic_baseline_double_arrow_24"
+			app:iconGravity="textEnd" />
+
 	</LinearLayout>
 
 	<com.google.android.material.button.MaterialButton
-		android:id="@+id/mButton_SearchEarthquakes"
-		android:layout_width="match_parent"
+		android:id="@+id/mButton_DropDownArrow"
+		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:text="@string/search"
-		app:cornerRadius="15dp"
-		app:icon="@drawable/ic_baseline_double_arrow_24"
-		app:iconGravity="textEnd" />
+		android:layout_gravity="center"
+		android:visibility="gone"
+		app:icon="@drawable/ic_baseline_arrow_drop_down_24"
+		android:backgroundTint="#00000000"
+		app:iconSize="48dp"
+		app:iconTint="#646464" />
 
 	<androidx.recyclerview.widget.RecyclerView
 		android:id="@+id/earthquakeList_recyclerview"
