@@ -27,13 +27,12 @@ public class SearchFragment extends Fragment {
 			ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 			responseProcessing.sendRequest();
 		});
-
-		MaterialDatePicker<Pair<Long, Long>> rangedDatePicker = MaterialDatePicker.Builder
-				.dateRangePicker()
-				.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
-				.build();
-
+		
 		mTextDate.setOnClickListener(listener -> {
+			MaterialDatePicker<Pair<Long, Long>> rangedDatePicker = MaterialDatePicker.Builder
+					.dateRangePicker()
+					.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
+					.build();
 			rangedDatePicker.show(getActivity().getSupportFragmentManager(), "Material Ranged Date Picker");
 			rangedDatePicker.addOnPositiveButtonClickListener(l -> {
 				mTextDate.setText(rangedDatePicker.getHeaderText());
