@@ -16,10 +16,10 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ParseData {
-	private static JSONObject SAMPLE_RESPONSE;
+	private static JSONObject FINAL_RESPONSE;
 
 	public static void setSampleJsonResponse(JSONObject response) {
-		SAMPLE_RESPONSE = response;
+		FINAL_RESPONSE = response;
 	}
 
 	// To prevent from creating an object of this class
@@ -30,7 +30,7 @@ public class ParseData {
 		ArrayList<Earthquake> earthquakes = new ArrayList<>();
 
 		try {
-			JSONArray earthquakeArray = SAMPLE_RESPONSE.getJSONArray("features");
+			JSONArray earthquakeArray = FINAL_RESPONSE.getJSONArray("features");
 
 			for (int i = 0; i < earthquakeArray.length(); i++) {
 				JSONObject currentEarthquake = earthquakeArray.getJSONObject(i);
@@ -51,7 +51,7 @@ public class ParseData {
 	}
 
 	public static String formatDate(Date dateObject) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("LLL dd yyyy", Locale.getDefault());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
 
 		return dateFormat.format(dateObject);
 	}
@@ -63,7 +63,6 @@ public class ParseData {
 	}
 
 	public static String formatMagnitude(double magnitude) {
-
 		return new DecimalFormat("0.0").format(magnitude);
 	}
 
@@ -79,10 +78,6 @@ public class ParseData {
 			locationOffset = "Near";
 			primaryLocation = originalLocation;
 		}
-
-		// Hardcoding to fix the typo in USGS response
-		if (primaryLocation.contains("P?hala"))
-			primaryLocation = "Pahala, Hawaii";
 
 		primaryLocation = capitalizeFirstCharacter(primaryLocation);
 

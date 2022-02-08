@@ -24,11 +24,26 @@ public class ResponseProcessing {
 		root = view;
 	}
 
-	public void sendRequest() {
-		String url = "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&starttime=2022-02-04&endtime=2022-02-05&minmagnitude=1&orderby=time-asc";
+	public void sendRequest(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate) {
+		StringBuilder url = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time");
+
+		if (!latitude.equals(""))
+			url.append("&latitude=").append(latitude);
+		if (!longitude.equals(""))
+			url.append("&longitude=").append(longitude).append("&maxradiuskm=1000");
+		if (!minMagnitude.equals(""))
+			url.append("&minmagnitude=").append(minMagnitude);
+		if (!maxMagnitude.equals(""))
+			url.append("&maxmagnitude=").append(maxMagnitude);
+		if (!startDate.equals(""))
+			url.append("&starttime=").append(startDate);
+		if (!endDate.equals(""))
+			url.append("&endtime=").append(endDate);
+
+		Log.e("Message 2", url.toString());
 		LinearProgressIndicator mLinearProgressIndicatorRequestLoading = root.findViewById(R.id.networkConnectivity_mProgressIndicator);
 
-		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url.toString(), null,
 				response -> {
 					ParseData.setSampleJsonResponse(response);
 					if (mLinearProgressIndicatorRequestLoading != null)

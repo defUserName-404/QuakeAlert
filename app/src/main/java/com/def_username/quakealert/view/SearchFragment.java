@@ -1,5 +1,7 @@
 package com.def_username.quakealert.view;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import android.transition.Slide;
@@ -15,14 +17,21 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.def_username.quakealert.R;
+import com.def_username.quakealert.viewmodel.ParseData;
 import com.def_username.quakealert.viewmodel.ResponseProcessing;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 public class SearchFragment extends Fragment {
 	private TextInputEditText mLocationTextInput, mDateTextInput, mMinMagnitudeTextInput, mMaxMagnitudeTextInput;
+	private String latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate;
+	private long startTime = 0L, endTime = 0L;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,12 +56,17 @@ public class SearchFragment extends Fragment {
 			extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
 					createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.VISIBLE));
 
-			responseProcessing.sendRequest();
+			responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 		});
 
 		mDateTextInput.setOnClickListener(listener -> {
 			rangedDatePicker.show(requireActivity().getSupportFragmentManager(), "Material Ranged Date Picker");
-			rangedDatePicker.addOnPositiveButtonClickListener(l -> mDateTextInput.setText(rangedDatePicker.getHeaderText()));
+			rangedDatePicker.addOnPositiveButtonClickListener(selection -> {
+				startTime = selection.first;
+				endTime = selection.second;
+
+				mDateTextInput.setText(rangedDatePicker.getHeaderText());
+			});
 		});
 
 		return rootView;
@@ -66,10 +80,24 @@ public class SearchFragment extends Fragment {
 	}
 
 	private void extractAndSendSearchRequest() {
-		String location = mLocationTextInput.getText().toString();
-		String minMagnitude = mMinMagnitudeTextInput.getText().toString();
-		String maxMagnitude = mMaxMagnitudeTextInput.getText().toString();
-		String date = mDateTextInput.getText().toString();
+		List<Address> addresses;
+		Geocoder geocoder = new Geocoder(requireActivity().getApplicationContext(), Locale.getDefault());
+		latitude = "";
+		longitude = "";
+
+		try {
+			addresses = geocoder.getFromLocationName(mLocationTextInput.getText().toString(), 1);
+			longitude = Double.toString(addresses.get(0).getLongitude());
+			latitude = Double.toString(addresses.get(0).getLatitude());
+		} catch (java.io.IOException ioException) {
+			ioException.printStackTrace();
+		}
+
+		minMagnitude = mMinMagnitudeTextInput.getText().toString();
+		maxMagnitude = mMaxMagnitudeTextInput.getText().toString();
+
+		startDate = (startTime == 0) ? "" : ParseData.formatDate(new Date(startTime));
+		endDate = (endTime == 0) ? "" : ParseData.formatDate(new Date(endTime));
 	}
 
 	private void createAnimation(ConstraintLayout searchContainer, ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton, int visibility) {
