@@ -32,6 +32,11 @@ public class SearchFragment extends Fragment {
 
 		ConstraintLayout searchContainer = rootView.findViewById(R.id.searchContainer);
 		ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton = rootView.findViewById(R.id.extendedFloatingActionButton_SearchAgain);
+		MaterialDatePicker<Pair<Long, Long>> rangedDatePicker = MaterialDatePicker.Builder
+				.dateRangePicker()
+				.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
+				.setTitleText("Select Date Range")
+				.build();
 
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
 			ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
@@ -39,19 +44,13 @@ public class SearchFragment extends Fragment {
 
 			createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.GONE);
 
-			extendedSearchAgainFloatingActionButton.setOnClickListener(lst -> {
-				createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.VISIBLE);
-			});
+			extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
+					createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.VISIBLE));
 
 			responseProcessing.sendRequest();
 		});
 
 		mDateTextInput.setOnClickListener(listener -> {
-			MaterialDatePicker<Pair<Long, Long>> rangedDatePicker = MaterialDatePicker.Builder
-					.dateRangePicker()
-					.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
-					.setTitleText("Select Date Range")
-					.build();
 			rangedDatePicker.show(requireActivity().getSupportFragmentManager(), "Material Ranged Date Picker");
 			rangedDatePicker.addOnPositiveButtonClickListener(l -> mDateTextInput.setText(rangedDatePicker.getHeaderText()));
 		});
