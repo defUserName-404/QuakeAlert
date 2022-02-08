@@ -24,8 +24,8 @@ public class ShowEarthquakesFragment extends Fragment {
 
 		String latitude = "", longitude = "";
 		String minMagnitude = "", maxMagnitude = "";
-		String startDate = ParseData.formatDate(new Date(Calendar.getInstance().getTimeInMillis()));
-		String endDate = ParseData.formatDate(new Date(Calendar.getInstance().getTimeInMillis() - 86400000));
+		String startDate = ParseData.formatDateForResponse(new Date(Calendar.getInstance().getTimeInMillis()));
+		String endDate = ParseData.formatDateForResponse(new Date(Calendar.getInstance().getTimeInMillis() - 86400000));
 
 		responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 

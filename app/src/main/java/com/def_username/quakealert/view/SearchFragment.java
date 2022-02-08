@@ -96,8 +96,8 @@ public class SearchFragment extends Fragment {
 		minMagnitude = mMinMagnitudeTextInput.getText().toString();
 		maxMagnitude = mMaxMagnitudeTextInput.getText().toString();
 
-		startDate = (startTime == 0) ? "" : ParseData.formatDate(new Date(startTime));
-		endDate = (endTime == 0) ? "" : ParseData.formatDate(new Date(endTime));
+		startDate = (startTime == 0) ? "" : ParseData.formatDateForResponse(new Date(startTime));
+		endDate = (endTime == 0) ? "" : ParseData.formatDateForResponse(new Date(endTime));
 	}
 
 	private void createAnimation(ConstraintLayout searchContainer, ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton, int visibility) {
