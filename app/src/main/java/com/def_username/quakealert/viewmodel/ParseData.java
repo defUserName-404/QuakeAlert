@@ -57,7 +57,7 @@ public class ParseData {
 	}
 
 	public static String formatDateForResponse(Date date) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
 		return dateFormat.format(date);
 	}

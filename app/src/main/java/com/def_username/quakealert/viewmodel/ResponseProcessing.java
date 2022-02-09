@@ -40,7 +40,6 @@ public class ResponseProcessing {
 		if (!endDate.equals(""))
 			url.append("&endtime=").append(endDate);
 
-		Log.e("Message 2", url.toString());
 		LinearProgressIndicator mLinearProgressIndicatorRequestLoading = root.findViewById(R.id.networkConnectivity_mProgressIndicator);
 
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url.toString(), null,
