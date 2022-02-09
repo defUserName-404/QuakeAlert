@@ -19,30 +19,17 @@ import java.util.Locale;
 
 public class ResponseProcessing {
 	private final View root;
+	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time");
 
 	public ResponseProcessing(View view) {
 		root = view;
 	}
 
 	public void sendRequest(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate) {
-		StringBuilder url = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time");
-
-		if (!latitude.equals(""))
-			url.append("&latitude=").append(latitude);
-		if (!longitude.equals(""))
-			url.append("&longitude=").append(longitude).append("&maxradiuskm=1000");
-		if (!minMagnitude.equals(""))
-			url.append("&minmagnitude=").append(minMagnitude);
-		if (!maxMagnitude.equals(""))
-			url.append("&maxmagnitude=").append(maxMagnitude);
-		if (!startDate.equals(""))
-			url.append("&starttime=").append(startDate);
-		if (!endDate.equals(""))
-			url.append("&endtime=").append(endDate);
-
+		processingURL(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 		LinearProgressIndicator mLinearProgressIndicatorRequestLoading = root.findViewById(R.id.networkConnectivity_mProgressIndicator);
 
-		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url.toString(), null,
+		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, URL.toString(), null,
 				response -> {
 					ParseData.setSampleJsonResponse(response);
 					if (mLinearProgressIndicatorRequestLoading != null)
@@ -52,6 +39,21 @@ public class ResponseProcessing {
 				error -> Log.e("Network Error", "Can't access URL"));
 
 		SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
+	}
+
+	private void processingURL(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate) {
+		if (!latitude.equals(""))
+			URL.append("&latitude=").append(latitude);
+		if (!longitude.equals(""))
+			URL.append("&longitude=").append(longitude).append("&maxradiuskm=1000");
+		if (!minMagnitude.equals(""))
+			URL.append("&minmagnitude=").append(minMagnitude);
+		if (!maxMagnitude.equals(""))
+			URL.append("&maxmagnitude=").append(maxMagnitude);
+		if (!startDate.equals(""))
+			URL.append("&starttime=").append(startDate);
+		if (!endDate.equals(""))
+			URL.append("&endtime=").append(endDate);
 	}
 
 	private void onResponseReceived() {

@@ -17,8 +17,7 @@ import java.util.Date;
 
 public class ShowEarthquakesFragment extends Fragment {
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View root = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
 		ResponseProcessing responseProcessing = new ResponseProcessing(root);
 
