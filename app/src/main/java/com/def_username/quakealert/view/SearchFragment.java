@@ -22,6 +22,7 @@ import com.def_username.quakealert.viewmodel.ResponseProcessing;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Date;
@@ -47,7 +48,11 @@ public class SearchFragment extends Fragment {
 				.setTitleText("Select Date Range")
 				.build();
 
+		LinearProgressIndicator mLinearProgressIndicatorRequestLoading = rootView.findViewById(R.id.networkConnectivity_mProgressIndicator);
+		mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
+
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
+			mLinearProgressIndicatorRequestLoading.setVisibility(View.VISIBLE);
 			ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 			extractAndSendSearchRequest();
 

@@ -26,6 +26,32 @@ public class ParseData {
 	private ParseData() {
 	}
 
+	public static int getRequestStatusCode() {
+		int requestStatusCode;
+
+		try {
+			JSONObject jsonMetadata = FINAL_RESPONSE.getJSONObject("metadata");
+			requestStatusCode = jsonMetadata.getInt("status");
+		} catch (JSONException e) {
+			requestStatusCode = 404;
+		}
+
+		return requestStatusCode;
+	}
+
+	private static int getCount() {
+		int count;
+
+		try {
+			JSONObject jsonMetadata = FINAL_RESPONSE.getJSONObject("metadata");
+			count = jsonMetadata.getInt("count");
+		} catch (JSONException e) {
+			count = 0;
+		}
+
+		return count;
+	}
+
 	public static ArrayList<Earthquake> extractEarthquakes() {
 		ArrayList<Earthquake> earthquakes = new ArrayList<>();
 
@@ -64,7 +90,7 @@ public class ParseData {
 
 	public static String formatTime(Date dateObject) {
 		SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
-		
+
 		return timeFormat.format(dateObject);
 	}
 

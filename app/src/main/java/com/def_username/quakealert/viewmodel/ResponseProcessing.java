@@ -31,12 +31,12 @@ public class ResponseProcessing {
 
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, URL.toString(), null,
 				response -> {
-					ParseData.setSampleJsonResponse(response);
 					if (mLinearProgressIndicatorRequestLoading != null)
 						mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
+					ParseData.setSampleJsonResponse(response);
 					onResponseReceived();
 				},
-				error -> Log.e("Network Error", "Can't access URL"));
+				error -> Log.e("Network Error", "Error connecting to the server"));
 
 		SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
 	}

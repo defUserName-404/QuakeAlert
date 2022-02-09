@@ -8,13 +8,11 @@
 	android:padding="3dp"
 	tools:context=".view.ShowEarthquakesFragment">
 
-	<com.google.android.material.progressindicator.LinearProgressIndicator
-		android:id="@+id/networkConnectivity_mProgressIndicator"
+	<include
+		android:id="@+id/include"
+		layout="@layout/linearprogressbar"
 		android:layout_width="match_parent"
-		android:layout_height="5dp"
-		android:layout_marginTop="10dp"
-		android:contentDescription="@string/loading_data_from_the_network"
-		android:indeterminate="true"
+		android:layout_height="wrap_content"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
@@ -23,10 +21,9 @@
 		android:id="@+id/earthquakeList_recyclerview"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_marginTop="-10dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/networkConnectivity_mProgressIndicator" />
+		app:layout_constraintTop_toBottomOf="@+id/include" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
