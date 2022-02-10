@@ -57,7 +57,7 @@ public class ResponseProcessing {
 	}
 
 	private void onResponseReceived() {
-		RecyclerView recyclerView = root.findViewById(R.id.earthquakeList_recyclerview);
+		RecyclerView recyclerView = root.getRootView().findViewById(R.id.earthquakeList_recyclerview);
 
 		ArrayList<Earthquake> earthquakes = ParseData.extractEarthquakes();
 		ArrayList<String> places = new ArrayList<>();

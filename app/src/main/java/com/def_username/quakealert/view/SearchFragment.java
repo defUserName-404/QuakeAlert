@@ -21,8 +21,6 @@ import com.def_username.quakealert.viewmodel.ParseData;
 import com.def_username.quakealert.viewmodel.ResponseProcessing;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Date;
@@ -41,25 +39,20 @@ public class SearchFragment extends Fragment {
 		initializeViews(rootView);
 
 		ConstraintLayout searchContainer = rootView.findViewById(R.id.searchContainer);
-		ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton = rootView.findViewById(R.id.extendedFloatingActionButton_SearchAgain);
 		MaterialDatePicker<Pair<Long, Long>> rangedDatePicker = MaterialDatePicker.Builder
 				.dateRangePicker()
 				.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
 				.setTitleText("Select Date Range")
 				.build();
 
-		LinearProgressIndicator mLinearProgressIndicatorRequestLoading = rootView.findViewById(R.id.networkConnectivity_mProgressIndicator);
-		mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
-
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
-			mLinearProgressIndicatorRequestLoading.setVisibility(View.VISIBLE);
 			ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 			extractAndSendSearchRequest();
 
-			createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.GONE);
+			createAnimation(searchContainer, View.GONE);
 
-			extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
-					createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.VISIBLE));
+//			extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
+//					createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.VISIBLE));
 
 			responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 		});
@@ -105,7 +98,7 @@ public class SearchFragment extends Fragment {
 		endDate = (endTime == 0) ? "" : ParseData.formatDateForResponse(new Date(endTime));
 	}
 
-	private void createAnimation(ConstraintLayout searchContainer, ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton, int visibility) {
+	private void createAnimation(ConstraintLayout searchContainer, int visibility) {
 		final int ANIMATION_DURATION = 200;
 
 		Transition transition;
@@ -116,7 +109,7 @@ public class SearchFragment extends Fragment {
 		TransitionManager.beginDelayedTransition(searchContainer, transition);
 		searchContainer.setVisibility(visibility);
 
-		extendedSearchAgainFloatingActionButton.postDelayed(() ->
-				extendedSearchAgainFloatingActionButton.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), ANIMATION_DURATION);
+//		extendedSearchAgainFloatingActionButton.postDelayed(() ->
+//				extendedSearchAgainFloatingActionButton.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), ANIMATION_DURATION);
 	}
 }
