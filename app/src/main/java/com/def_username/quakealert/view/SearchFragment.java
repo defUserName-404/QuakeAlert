@@ -51,8 +51,8 @@ public class SearchFragment extends Fragment {
 
 			createAnimation(searchContainer, View.GONE);
 
-//			extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
-//					createAnimation(searchContainer, extendedSearchAgainFloatingActionButton, View.VISIBLE));
+			SearchActivity.extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
+					createAnimation(searchContainer, View.VISIBLE));
 
 			responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 		});
@@ -75,6 +75,7 @@ public class SearchFragment extends Fragment {
 		mMinMagnitudeTextInput = rootView.findViewById(R.id.mTextInputEditText_MinimumMagnitude);
 		mMaxMagnitudeTextInput = rootView.findViewById(R.id.mTextInputEditText_MaximumMagnitude);
 		mDateTextInput = rootView.findViewById(R.id.mTextInputEditText_Date);
+		SearchActivity.extendedSearchAgainFloatingActionButton = getActivity().findViewById(R.id.extendedFloatingActionButton_SearchAgain);
 	}
 
 	private void extractAndSendSearchRequest() {
@@ -109,7 +110,7 @@ public class SearchFragment extends Fragment {
 		TransitionManager.beginDelayedTransition(searchContainer, transition);
 		searchContainer.setVisibility(visibility);
 
-//		extendedSearchAgainFloatingActionButton.postDelayed(() ->
-//				extendedSearchAgainFloatingActionButton.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), ANIMATION_DURATION);
+		SearchActivity.extendedSearchAgainFloatingActionButton.postDelayed(() ->
+				SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), ANIMATION_DURATION);
 	}
 }
