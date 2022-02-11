@@ -75,7 +75,6 @@ public class SearchFragment extends Fragment {
 		mMinMagnitudeTextInput = rootView.findViewById(R.id.mTextInputEditText_MinimumMagnitude);
 		mMaxMagnitudeTextInput = rootView.findViewById(R.id.mTextInputEditText_MaximumMagnitude);
 		mDateTextInput = rootView.findViewById(R.id.mTextInputEditText_Date);
-		SearchActivity.extendedSearchAgainFloatingActionButton = getActivity().findViewById(R.id.extendedFloatingActionButton_SearchAgain);
 	}
 
 	private void extractAndSendSearchRequest() {

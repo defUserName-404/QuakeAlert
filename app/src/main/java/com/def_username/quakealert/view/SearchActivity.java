@@ -1,7 +1,6 @@
 package com.def_username.quakealert.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
@@ -12,7 +11,6 @@ import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity {
 	public static ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton;
-	public static RecyclerView showEarthquakeRecyclerView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +20,5 @@ public class SearchActivity extends AppCompatActivity {
 		getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
 
 		extendedSearchAgainFloatingActionButton = findViewById(R.id.extendedFloatingActionButton_SearchAgain);
-		showEarthquakeRecyclerView = findViewById(R.id.earthquakeList_recyclerview);
 	}
 }
