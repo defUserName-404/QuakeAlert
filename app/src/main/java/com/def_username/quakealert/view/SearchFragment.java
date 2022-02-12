@@ -46,6 +46,9 @@ public class SearchFragment extends Fragment {
 				.build();
 
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
+			SearchActivity.linearLayout.postDelayed(() ->
+					SearchActivity.linearLayout.setVisibility(View.VISIBLE), 200);
+
 			ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 			extractAndSendSearchRequest();
 
@@ -111,5 +114,8 @@ public class SearchFragment extends Fragment {
 
 		SearchActivity.extendedSearchAgainFloatingActionButton.postDelayed(() ->
 				SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), ANIMATION_DURATION);
+
+		SearchActivity.linearLayout.postDelayed(() ->
+				SearchActivity.linearLayout.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), 200);
 	}
 }

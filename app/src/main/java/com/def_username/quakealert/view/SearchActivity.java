@@ -3,6 +3,7 @@ package com.def_username.quakealert.view;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.def_username.quakealert.R;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity {
 	public static ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton;
+	public static LinearLayout linearLayout;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +22,6 @@ public class SearchActivity extends AppCompatActivity {
 		getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
 
 		extendedSearchAgainFloatingActionButton = findViewById(R.id.extendedFloatingActionButton_SearchAgain);
+		linearLayout = findViewById(R.id.fragmentContainer_Result);
 	}
 }

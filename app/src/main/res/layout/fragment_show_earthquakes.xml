@@ -5,7 +5,6 @@
 	android:id="@+id/showEarthquakesFragment"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:padding="3dp"
 	tools:context=".view.ShowEarthquakesFragment">
 
 	<include
