@@ -16,16 +16,26 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ShowEarthquakesFragment extends Fragment {
-	private String latitude, longitude, minMagnitude, maxMagnitude, endDate, startDate;
+	private final String latitude, longitude, minMagnitude, maxMagnitude, endDate, startDate;
 
-	private void init() {
+	public ShowEarthquakesFragment() {
 		latitude = longitude = "";
 		minMagnitude = maxMagnitude = "";
 
 		long time = Calendar.getInstance().getTimeInMillis();
 
 		endDate = ParseData.formatDateForResponse(new Date(time));
-		startDate = ParseData.formatDateForResponse(new Date(time - 86400000));
+		startDate = ParseData.formatDateForResponse(new Date(time - 86400000 * 2));
+	}
+
+	public ShowEarthquakesFragment(String latitude, String longitude, String minMagnitude, String maxMagnitude,
+								   String startDate, String endDate) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.maxMagnitude = maxMagnitude;
+		this.minMagnitude = minMagnitude;
+		this.startDate = startDate;
+		this.endDate = endDate;
 	}
 
 	@Override
@@ -33,7 +43,6 @@ public class ShowEarthquakesFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
 		ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 
-		init();
 		responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 
 		return rootView;

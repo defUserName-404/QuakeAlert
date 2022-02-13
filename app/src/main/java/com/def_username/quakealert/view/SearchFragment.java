@@ -4,21 +4,15 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.viewmodel.ParseData;
-import com.def_username.quakealert.viewmodel.ResponseProcessing;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,9 +22,11 @@ import java.util.List;
 import java.util.Locale;
 
 public class SearchFragment extends Fragment {
+	private static final short ANIMATION_DURATION = 300;
 	private TextInputEditText mLocationTextInput, mDateTextInput, mMinMagnitudeTextInput, mMaxMagnitudeTextInput;
 	private String latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate;
 	private long startTime = 0L, endTime = 0L;
+	private Fragment searchResultsFragment;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +34,6 @@ public class SearchFragment extends Fragment {
 		MaterialButton mButtonSearchEarthquakes = rootView.findViewById(R.id.mButton_SearchEarthquakes);
 		initializeViews(rootView);
 
-		ConstraintLayout searchContainer = rootView.findViewById(R.id.searchContainer);
 		MaterialDatePicker<Pair<Long, Long>> rangedDatePicker = MaterialDatePicker.Builder
 				.dateRangePicker()
 				.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
@@ -46,18 +41,21 @@ public class SearchFragment extends Fragment {
 				.build();
 
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
-			SearchActivity.linearLayout.postDelayed(() ->
-					SearchActivity.linearLayout.setVisibility(View.VISIBLE), 200);
-
-			ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 			extractAndSendSearchRequest();
 
-			createAnimation(searchContainer, View.GONE);
+			searchResultsFragment = new ShowEarthquakesFragment(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
+
+			requireActivity().getSupportFragmentManager()
+					.beginTransaction()
+					.hide(SearchActivity.searchContainerFragment)
+					.add(R.id.fragmentContainer, searchResultsFragment)
+					.setReorderingAllowed(true)
+					.commit();
+
+			SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(View.VISIBLE);
 
 			SearchActivity.extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
-					createAnimation(searchContainer, View.VISIBLE));
-
-			responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
+					createAnimation(View.VISIBLE));
 		});
 
 		mDateTextInput.setOnClickListener(listener -> {
@@ -101,21 +99,15 @@ public class SearchFragment extends Fragment {
 		endDate = (endTime == 0) ? "" : ParseData.formatDateForResponse(new Date(endTime));
 	}
 
-	private void createAnimation(ConstraintLayout searchContainer, int visibility) {
-		final int ANIMATION_DURATION = 200;
-
-		Transition transition;
-		transition = (visibility == View.VISIBLE) ? new Slide(Gravity.BOTTOM) : new Slide(Gravity.TOP);
-		transition.setDuration(ANIMATION_DURATION);
-		transition.addTarget(searchContainer);
-
-		TransitionManager.beginDelayedTransition(searchContainer, transition);
-		searchContainer.setVisibility(visibility);
-
+	private void createAnimation(int visibility) {
 		SearchActivity.extendedSearchAgainFloatingActionButton.postDelayed(() ->
 				SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), ANIMATION_DURATION);
 
-		SearchActivity.linearLayout.postDelayed(() ->
-				SearchActivity.linearLayout.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), 200);
+		requireActivity().getSupportFragmentManager()
+				.beginTransaction()
+				.hide(searchResultsFragment)
+				.show(SearchActivity.searchContainerFragment)
+				.setReorderingAllowed(true)
+				.commit();
 	}
 }
