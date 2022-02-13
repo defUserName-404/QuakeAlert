@@ -2,7 +2,9 @@ package com.def_username.quakealert.view;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +19,8 @@ import java.util.Date;
 
 public class ShowEarthquakesFragment extends Fragment {
 	private final String latitude, longitude, minMagnitude, maxMagnitude, endDate, startDate;
+	private RecyclerView mRecyclerView;
+	private static boolean IMPLEMENT_SCROLL_LISTENER_FLAG = false;
 
 	public ShowEarthquakesFragment() {
 		latitude = longitude = "";
@@ -36,15 +40,40 @@ public class ShowEarthquakesFragment extends Fragment {
 		this.minMagnitude = minMagnitude;
 		this.startDate = startDate;
 		this.endDate = endDate;
+
+		IMPLEMENT_SCROLL_LISTENER_FLAG = true;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
-		ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 
+		if (IMPLEMENT_SCROLL_LISTENER_FLAG) {
+			mRecyclerView = rootView.findViewById(R.id.earthquakeList_recyclerview);
+			disableSearchAgainButtonWhileScrolling();
+		}
+
+		ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 		responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 
 		return rootView;
+	}
+
+	private void disableSearchAgainButtonWhileScrolling() {
+		mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+			@Override
+			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+				if (dy > 0 || dy < 0 && SearchActivity.extendedSearchAgainFloatingActionButton.isShown())
+					SearchActivity.extendedSearchAgainFloatingActionButton.hide();
+			}
+
+			@Override
+			public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+				if (newState == RecyclerView.SCROLL_STATE_IDLE)
+					SearchActivity.extendedSearchAgainFloatingActionButton.show();
+
+				super.onScrollStateChanged(recyclerView, newState);
+			}
+		});
 	}
 }
