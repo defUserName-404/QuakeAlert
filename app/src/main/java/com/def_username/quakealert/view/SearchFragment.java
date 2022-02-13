@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class SearchFragment extends Fragment {
-	private static final short ANIMATION_DURATION = 300;
+	private static final short ANIMATION_DURATION = 200;
 	private TextInputEditText mLocationTextInput, mDateTextInput, mMinMagnitudeTextInput, mMaxMagnitudeTextInput;
 	private String latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate;
 	private long startTime = 0L, endTime = 0L;
@@ -52,10 +52,19 @@ public class SearchFragment extends Fragment {
 					.setReorderingAllowed(true)
 					.commit();
 
-			SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(View.VISIBLE);
+			setSearchAgainButtonVisibility(View.VISIBLE);
 
-			SearchActivity.extendedSearchAgainFloatingActionButton.setOnClickListener(lst ->
-					createAnimation(View.VISIBLE));
+			SearchActivity.extendedSearchAgainFloatingActionButton.setOnClickListener(lst -> {
+				setSearchAgainButtonVisibility(View.GONE);
+
+				requireActivity().getSupportFragmentManager()
+						.beginTransaction()
+						.remove(searchResultsFragment)
+						.setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+						.show(SearchActivity.searchContainerFragment)
+						.setReorderingAllowed(true)
+						.commit();
+			});
 		});
 
 		mDateTextInput.setOnClickListener(listener -> {
@@ -99,15 +108,8 @@ public class SearchFragment extends Fragment {
 		endDate = (endTime == 0) ? "" : ParseData.formatDateForResponse(new Date(endTime));
 	}
 
-	private void createAnimation(int visibility) {
+	private void setSearchAgainButtonVisibility(int visibility) {
 		SearchActivity.extendedSearchAgainFloatingActionButton.postDelayed(() ->
-				SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE), ANIMATION_DURATION);
-
-		requireActivity().getSupportFragmentManager()
-				.beginTransaction()
-				.hide(searchResultsFragment)
-				.show(SearchActivity.searchContainerFragment)
-				.setReorderingAllowed(true)
-				.commit();
+				SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(visibility), ANIMATION_DURATION);
 	}
 }
