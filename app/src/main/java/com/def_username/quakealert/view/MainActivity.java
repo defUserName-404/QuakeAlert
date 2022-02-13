@@ -18,6 +18,12 @@ public class MainActivity extends AppCompatActivity {
 		setTheme(R.style.Theme_QuakeAlert);
 		setContentView(R.layout.activity_main);
 		Objects.requireNonNull(getSupportActionBar()).setTitle("Recent Earthquakes");
+
+		getSupportFragmentManager()
+				.beginTransaction()
+				.add(R.id.fragmentContainer, new ShowEarthquakesFragment())
+				.setReorderingAllowed(true)
+				.commit();
 	}
 
 	@Override
