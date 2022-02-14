@@ -12,21 +12,24 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.def_username.quakealert.R;
+import com.def_username.quakealert.viewmodel.InputValidator;
 import com.def_username.quakealert.viewmodel.ParseData;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class SearchFragment extends Fragment {
 	private static final short ANIMATION_DURATION = 200;
-	private TextInputEditText mLocationTextInput, mDateTextInput, mMinMagnitudeTextInput, mMaxMagnitudeTextInput;
-	private String latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate;
-	private long startTime = 0L, endTime = 0L;
+	protected static boolean IS_INPUT_VALID = true;
+	protected static TextInputEditText mLocationTextInput, mDateTextInput, mMinMagnitudeTextInput, mMaxMagnitudeTextInput;
+	protected static String latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate;
 	private Fragment searchResultsFragment;
+	private long startTime = 0L, endTime = 0L;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,29 +45,33 @@ public class SearchFragment extends Fragment {
 
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
 			extractAndSendSearchRequest();
+			IS_INPUT_VALID = true;
+			InputValidator.validateInput();
 
-			searchResultsFragment = new ShowEarthquakesFragment(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
-
-			requireActivity().getSupportFragmentManager()
-					.beginTransaction()
-					.hide(SearchActivity.searchContainerFragment)
-					.add(R.id.fragmentContainer, searchResultsFragment)
-					.setReorderingAllowed(true)
-					.commit();
-
-			setSearchAgainButtonVisibility(View.VISIBLE);
-
-			SearchActivity.extendedSearchAgainFloatingActionButton.setOnClickListener(lst -> {
-				setSearchAgainButtonVisibility(View.GONE);
+			if (IS_INPUT_VALID) {
+				searchResultsFragment = new ShowEarthquakesFragment(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
 
 				requireActivity().getSupportFragmentManager()
 						.beginTransaction()
-						.remove(searchResultsFragment)
-						.setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
-						.show(SearchActivity.searchContainerFragment)
+						.hide(SearchActivity.searchContainerFragment)
+						.add(R.id.fragmentContainer, searchResultsFragment)
 						.setReorderingAllowed(true)
 						.commit();
-			});
+
+				setSearchAgainButtonVisibility(View.VISIBLE);
+
+				SearchActivity.extendedSearchAgainFloatingActionButton.setOnClickListener(lst -> {
+					setSearchAgainButtonVisibility(View.GONE);
+
+					requireActivity().getSupportFragmentManager()
+							.beginTransaction()
+							.remove(searchResultsFragment)
+							.setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+							.show(SearchActivity.searchContainerFragment)
+							.setReorderingAllowed(true)
+							.commit();
+				});
+			}
 		});
 
 		mDateTextInput.setOnClickListener(listener -> {
@@ -95,9 +102,15 @@ public class SearchFragment extends Fragment {
 
 		try {
 			addresses = geocoder.getFromLocationName(mLocationTextInput.getText().toString(), 1);
-			longitude = Double.toString(addresses.get(0).getLongitude());
-			latitude = Double.toString(addresses.get(0).getLatitude());
-		} catch (java.io.IOException ioException) {
+
+			if (addresses.isEmpty()) {
+				latitude = "";
+				longitude = "";
+			} else {
+				longitude = Double.toString(addresses.get(0).getLongitude());
+				latitude = Double.toString(addresses.get(0).getLatitude());
+			}
+		} catch (IOException ioException) {
 			ioException.printStackTrace();
 		}
 
