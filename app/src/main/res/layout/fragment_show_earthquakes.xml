@@ -26,4 +26,48 @@
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toBottomOf="@+id/networkConnectivity_mProgressIndicator" />
 
+	<ImageView
+		android:id="@+id/imageView_NothingFound"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/icons8_nothing_found_96"
+		android:visibility="gone"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/earthquakeList_recyclerview"
+		app:layout_constraintVertical_bias="0.4" />
+
+	<TextView
+		android:id="@+id/textView_NothingFound"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="No earthquake data found in last 24 hours."
+		android:visibility="gone"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/imageView_NothingFound" />
+
+	<ImageView
+		android:id="@+id/imageView_NetworkError"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:src="@drawable/icons8_sad_cloud_100"
+		android:visibility="gone"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/earthquakeList_recyclerview"
+		app:layout_constraintVertical_bias="0.4" />
+
+	<TextView
+		android:id="@+id/textView_NetworkError"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:text="Please check your network"
+		android:visibility="gone"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/imageView_NetworkError" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,12 @@ public class ResponseProcessing {
 					ParseData.setSampleJsonResponse(response);
 					onResponseReceived();
 				},
-				error -> Log.e("Network Error", "Error connecting to the server"));
+				error -> {
+					if (mLinearProgressIndicatorRequestLoading != null)
+						mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
+					root.findViewById(R.id.imageView_NetworkError).setVisibility(View.VISIBLE);
+					root.findViewById(R.id.textView_NetworkError).setVisibility(View.VISIBLE);
+				});
 
 		SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
 	}
@@ -84,5 +89,13 @@ public class ResponseProcessing {
 				new ShowEarthquakeAdapter(root.getContext(), places, placesOffset, times, scales);
 		recyclerView.setAdapter(showEarthquakeAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
+
+		if (ParseData.getCount() == 0) {
+			root.findViewById(R.id.imageView_NothingFound).setVisibility(View.VISIBLE);
+			root.findViewById(R.id.textView_NothingFound).setVisibility(View.VISIBLE);
+		} else if (ParseData.getRequestStatusCode() != 200) {
+			root.findViewById(R.id.imageView_NetworkError).setVisibility(View.VISIBLE);
+			root.findViewById(R.id.textView_NetworkError).setVisibility(View.VISIBLE);
+		}
 	}
 }

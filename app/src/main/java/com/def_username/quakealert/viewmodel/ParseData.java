@@ -39,7 +39,7 @@ public class ParseData {
 		return requestStatusCode;
 	}
 
-	private static int getCount() {
+	public static int getCount() {
 		int count;
 
 		try {

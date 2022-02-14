@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/layout/earthquake_detail.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/layout/earthquake_detail_timeout.xml" value="0.38958333333333334" />
+        <entry key="app/src/main/res/layout/fragment_no_earthquake_found.xml" value="0.21302083333333333" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_show_earthquake_zero.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/layout/fragment_show_earthquakes.xml" value="0.38358974358974357" />
