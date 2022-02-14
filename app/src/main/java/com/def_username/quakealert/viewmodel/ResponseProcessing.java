@@ -1,6 +1,5 @@
 package com.def_username.quakealert.viewmodel;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
