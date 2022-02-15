@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.def_username.quakealert.R;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 		String magnitude = scales.get(position);
 		holder.scale.setText(magnitude);
 		holder.scale.setBackgroundResource(ParseData.setMagnitudeBGColor(Double.parseDouble(magnitude)));
+		holder.materialCardView.setStrokeColor(ParseData.setCardViewStrokeColor(Double.parseDouble(magnitude)));
 	}
 
 	@Override
@@ -52,6 +54,7 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 
 	public static class EarthquakeListViewHolder extends RecyclerView.ViewHolder {
 		private final TextView place, time, scale, placesOffset;
+		private final MaterialCardView materialCardView;
 
 		public EarthquakeListViewHolder(@NonNull View itemView) {
 			super(itemView);
@@ -59,6 +62,7 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 			placesOffset = itemView.findViewById(R.id.placeoffset_textview);
 			time = itemView.findViewById(R.id.time_textview);
 			scale = itemView.findViewById(R.id.scale_textview);
+			materialCardView = itemView.findViewById(R.id.materialCardView);
 		}
 	}
 }

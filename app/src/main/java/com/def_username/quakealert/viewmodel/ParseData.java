@@ -1,5 +1,6 @@
 package com.def_username.quakealert.viewmodel;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.def_username.quakealert.R;
@@ -157,6 +158,46 @@ public class ParseData {
 				break;
 			default:
 				magnitudeColorResourceId = R.color.magnitude10plus;
+				break;
+		}
+
+		return magnitudeColorResourceId;
+	}
+
+	public static int setCardViewStrokeColor(double magnitude) {
+		int magnitudeColorResourceId;
+		int magnitudeFloor = (int) Math.floor(magnitude);
+		switch (magnitudeFloor) {
+			case 0:
+			case 1:
+				magnitudeColorResourceId = Color.parseColor("#4A7BA7");
+				break;
+			case 2:
+				magnitudeColorResourceId = Color.parseColor("#04B4B3");
+				break;
+			case 3:
+				magnitudeColorResourceId = Color.parseColor("#10CAC9");
+				break;
+			case 4:
+				magnitudeColorResourceId = Color.parseColor("#F5A623");
+				break;
+			case 5:
+				magnitudeColorResourceId = Color.parseColor("#FF7D50");
+				break;
+			case 6:
+				magnitudeColorResourceId = Color.parseColor("#FC6644");
+				break;
+			case 7:
+				magnitudeColorResourceId = Color.parseColor("#E75F40");
+				break;
+			case 8:
+				magnitudeColorResourceId = Color.parseColor("#E13A20");
+				break;
+			case 9:
+				magnitudeColorResourceId = Color.parseColor("#D93218");
+				break;
+			default:
+				magnitudeColorResourceId = Color.parseColor("#C03823");
 				break;
 		}
 

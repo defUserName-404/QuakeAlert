@@ -24,6 +24,7 @@
 			android:layout_width="36dp"
 			android:layout_height="match_parent"
 			android:layout_margin="10dp"
+			android:background="@drawable/magnitude_bg_circle"
 			android:gravity="center"
 			android:text="Scale"
 			android:textSize="16sp"
