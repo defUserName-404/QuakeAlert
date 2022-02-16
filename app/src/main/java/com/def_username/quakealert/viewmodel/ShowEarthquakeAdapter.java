@@ -1,6 +1,9 @@
 package com.def_username.quakealert.viewmodel;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,8 +46,10 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 		holder.time.setText(times.get(position));
 		String magnitude = scales.get(position);
 		holder.scale.setText(magnitude);
-		holder.scale.setBackgroundResource(ParseData.setMagnitudeBGColor(Double.parseDouble(magnitude)));
-		holder.materialCardView.setStrokeColor(ParseData.setCardViewStrokeColor(Double.parseDouble(magnitude)));
+		int color = ParseData.getBGColor(Double.parseDouble(magnitude));
+		holder.materialCardView.setStrokeColor(color);
+		GradientDrawable bgShape = (GradientDrawable) holder.scale.getBackground();
+		bgShape.setColor(color);
 	}
 
 	@Override
