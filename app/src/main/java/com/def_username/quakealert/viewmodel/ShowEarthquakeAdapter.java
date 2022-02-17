@@ -18,14 +18,16 @@ import java.util.ArrayList;
 public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAdapter.EarthquakeListViewHolder> {
 	private final Context context;
 	private final ArrayList<String> places, times, scales, placesOffset;
+	private final OnEarthquakeListListener onEarthquakeListListener;
 
 	public ShowEarthquakeAdapter(Context context, ArrayList<String> places, ArrayList<String> placesOffset,
-								 ArrayList<String> times, ArrayList<String> scales) {
+								 ArrayList<String> times, ArrayList<String> scales, OnEarthquakeListListener onEarthquakeListListener) {
 		this.context = context;
 		this.places = places;
 		this.placesOffset = placesOffset;
 		this.times = times;
 		this.scales = scales;
+		this.onEarthquakeListListener = onEarthquakeListListener;
 	}
 
 	@NonNull
@@ -34,7 +36,7 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 		LayoutInflater layoutInflater = LayoutInflater.from(context);
 		View view = layoutInflater.inflate(R.layout.earthquake_detail, parent, false);
 
-		return new EarthquakeListViewHolder(view);
+		return new EarthquakeListViewHolder(view, onEarthquakeListListener);
 	}
 
 	@Override
@@ -55,17 +57,30 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 		return places.size();
 	}
 
-	public static class EarthquakeListViewHolder extends RecyclerView.ViewHolder {
+	public static class EarthquakeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		private final TextView place, time, scale, placesOffset;
 		private final MaterialCardView materialCardView;
+		private final OnEarthquakeListListener onEarthquakeListListener;
 
-		public EarthquakeListViewHolder(@NonNull View itemView) {
+		public EarthquakeListViewHolder(@NonNull View itemView, OnEarthquakeListListener onEarthquakeListListener) {
 			super(itemView);
 			place = itemView.findViewById(R.id.place_textview);
 			placesOffset = itemView.findViewById(R.id.placeoffset_textview);
 			time = itemView.findViewById(R.id.time_textview);
 			scale = itemView.findViewById(R.id.scale_textview);
 			materialCardView = itemView.findViewById(R.id.materialCardView);
+
+			this.onEarthquakeListListener = onEarthquakeListListener;
+			itemView.setOnClickListener(this);
 		}
+
+		@Override
+		public void onClick(View view) {
+			onEarthquakeListListener.showEarthquakeDetails(getAdapterPosition());
+		}
+	}
+
+	public interface OnEarthquakeListListener {
+		void showEarthquakeDetails(int position);
 	}
 }

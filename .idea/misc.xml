@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/drawable/magnitude_bg_circle.xml" value="0.151" />
         <entry key="app/src/main/res/drawable/magnitude_circle.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/splash_screen.xml" value="0.2405" />
+        <entry key="app/src/main/res/layout/activity_earthquake_details.xml" value="0.37552083333333336" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.38358974358974357" />
         <entry key="app/src/main/res/layout/activity_main_search.xml" value="0.38958333333333334" />
         <entry key="app/src/main/res/layout/activity_search.xml" value="0.38958333333333334" />

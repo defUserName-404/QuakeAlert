@@ -1,5 +1,7 @@
 package com.def_username.quakealert.viewmodel;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -10,13 +12,14 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.SingletonRequestData;
+import com.def_username.quakealert.view.EarthquakeDetailsActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class ResponseProcessing {
+public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListListener {
 	private final View root;
 	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time");
 
@@ -85,7 +88,7 @@ public class ResponseProcessing {
 		}
 
 		ShowEarthquakeAdapter showEarthquakeAdapter =
-				new ShowEarthquakeAdapter(root.getContext(), places, placesOffset, times, scales);
+				new ShowEarthquakeAdapter(root.getContext(), places, placesOffset, times, scales, this);
 		recyclerView.setAdapter(showEarthquakeAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
@@ -96,5 +99,12 @@ public class ResponseProcessing {
 			root.findViewById(R.id.imageView_NetworkError).setVisibility(View.VISIBLE);
 			root.findViewById(R.id.textView_NetworkError).setVisibility(View.VISIBLE);
 		}
+	}
+
+	@Override
+	public void showEarthquakeDetails(int position) {
+		Context context = root.getContext();
+		Intent intent = new Intent(context, EarthquakeDetailsActivity.class);
+		context.startActivity(intent);
 	}
 }

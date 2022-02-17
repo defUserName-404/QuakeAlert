@@ -13,6 +13,9 @@
 		android:supportsRtl="true"
 		android:theme="@style/Theme.QuakeAlert">
 		<activity
+			android:name=".view.EarthquakeDetailsActivity"
+			android:exported="false" />
+		<activity
 			android:name=".view.SearchActivity"
 			android:exported="false"
 			android:parentActivityName=".view.MainActivity" />
