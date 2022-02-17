@@ -8,12 +8,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.SingletonRequestData;
 import com.def_username.quakealert.view.EarthquakeDetailsActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,16 +36,12 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, URL.toString(), null,
 				response -> {
-					if (mLinearProgressIndicatorRequestLoading != null)
-						mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
-					ParseData.setSampleJsonResponse(response);
-					onResponseReceived();
+					mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
+					onResponseReceived(response);
 				},
 				error -> {
-					if (mLinearProgressIndicatorRequestLoading != null)
-						mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
-					root.findViewById(R.id.imageView_NetworkError).setVisibility(View.VISIBLE);
-					root.findViewById(R.id.textView_NetworkError).setVisibility(View.VISIBLE);
+					mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
+					onResponseError(error);
 				});
 
 		SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
@@ -63,8 +62,9 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 			URL.append("&endtime=").append(endDate);
 	}
 
-	private void onResponseReceived() {
+	private void onResponseReceived(JSONObject response) {
 		RecyclerView recyclerView = root.getRootView().findViewById(R.id.earthquakeList_recyclerview);
+		ParseData.setSampleJsonResponse(response);
 
 		ArrayList<Earthquake> earthquakes = ParseData.extractEarthquakes();
 		ArrayList<String> places = new ArrayList<>();
@@ -81,6 +81,9 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 			String primaryLocation = ParseData.formatLocation(originalLocation)[0];
 			String locationOffset = ParseData.formatLocation(originalLocation)[1];
 
+			if (earthquake.getMagnitude() < 0)
+				continue;
+
 			places.add(primaryLocation);
 			placesOffset.add(locationOffset);
 			times.add(formattedDate + "\n" + formattedTime);
@@ -92,10 +95,24 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		recyclerView.setAdapter(showEarthquakeAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
-		if (ParseData.getCount() == 0) {
+		int totalResults = ParseData.getCount();
+		if (totalResults == 0) {
 			root.findViewById(R.id.imageView_NothingFound).setVisibility(View.VISIBLE);
 			root.findViewById(R.id.textView_NothingFound).setVisibility(View.VISIBLE);
-		} else if (ParseData.getRequestStatusCode() != 200) {
+		}
+	}
+
+	private void onResponseError(VolleyError error) {
+		if (error.networkResponse == null) {
+			root.findViewById(R.id.imageView_NetworkError).setVisibility(View.VISIBLE);
+			root.findViewById(R.id.textView_NetworkError).setVisibility(View.VISIBLE);
+			return;
+		}
+		int statusCode = error.networkResponse.statusCode;
+		if (statusCode == 400) {
+			root.findViewById(R.id.imageView_NothingFound).setVisibility(View.VISIBLE);
+			root.findViewById(R.id.textView_NothingFound).setVisibility(View.VISIBLE);
+		} else if (statusCode == 408) {
 			root.findViewById(R.id.imageView_NetworkError).setVisibility(View.VISIBLE);
 			root.findViewById(R.id.textView_NetworkError).setVisibility(View.VISIBLE);
 		}

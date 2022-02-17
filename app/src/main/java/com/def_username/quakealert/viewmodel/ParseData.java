@@ -3,7 +3,6 @@ package com.def_username.quakealert.viewmodel;
 import android.graphics.Color;
 import android.util.Log;
 
-import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
 
 import org.json.JSONArray;
@@ -25,19 +24,6 @@ public class ParseData {
 
 	// To prevent from creating an object of this class
 	private ParseData() {
-	}
-
-	public static int getRequestStatusCode() {
-		int requestStatusCode;
-
-		try {
-			JSONObject jsonMetadata = FINAL_RESPONSE.getJSONObject("metadata");
-			requestStatusCode = jsonMetadata.getInt("status");
-		} catch (JSONException e) {
-			requestStatusCode = 404;
-		}
-
-		return requestStatusCode;
 	}
 
 	public static int getCount() {
