@@ -15,8 +15,22 @@
 		<!-- Customize your theme here. -->
 	</style>
 
-	<style name="splashScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar" >
+	<style name="splashScreenTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
 		<item name="android:windowFullscreen">true</item>
 		<item name="android:windowBackground">@drawable/splash_screen</item>
 	</style>
+
+	<style name="CustomCardView" parent="@style/Widget.MaterialComponents.CardView">
+		<item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut
+		</item>
+	</style>
+
+	<style name="ShapeAppearanceOverlay.MaterialCardView.Cut" parent="">
+		<item name="cornerFamily">rounded</item>
+		<item name="cornerSizeTopRight">16dp</item>
+		<item name="cornerSizeTopLeft">16dp</item>
+		<item name="cornerSizeBottomRight">0dp</item>
+		<item name="cornerSizeBottomLeft">0dp</item>
+	</style>
+	
 </resources>
