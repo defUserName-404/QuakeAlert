@@ -20,7 +20,7 @@
 		<item name="android:windowBackground">@drawable/splash_screen</item>
 	</style>
 
-	<style name="CustomCardView" parent="@style/Widget.MaterialComponents.CardView">
+	<style name="customCardView" parent="@style/Widget.MaterialComponents.CardView">
 		<item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut
 		</item>
 	</style>
@@ -31,6 +31,13 @@
 		<item name="cornerSizeTopLeft">16dp</item>
 		<item name="cornerSizeBottomRight">0dp</item>
 		<item name="cornerSizeBottomLeft">0dp</item>
+	</style>
+
+	<style name="customMaterialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+		<item name="boxCornerRadiusBottomEnd">10dp</item>
+		<item name="boxCornerRadiusBottomStart">10dp</item>
+		<item name="boxCornerRadiusTopEnd">10dp</item>
+		<item name="boxCornerRadiusTopStart">10dp</item>
 	</style>
 
 </resources>

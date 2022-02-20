@@ -3,8 +3,8 @@
 	<style name="Theme.QuakeAlert" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
 		<item name="android:windowFullscreen">true</item>
 		<!-- Primary brand color. -->
-		<item name="colorPrimary">@color/purple_700</item>
-		<item name="colorPrimaryVariant">@color/purple_500</item>
+		<item name="colorPrimary">@color/blue_700</item>
+		<item name="colorPrimaryVariant">@color/blue_200</item>
 		<item name="colorOnPrimary">@color/white</item>
 		<!-- Secondary brand color. -->
 		<item name="colorSecondary">@color/teal_200</item>
@@ -20,7 +20,7 @@
 		<item name="android:windowBackground">@drawable/splash_screen</item>
 	</style>
 
-	<style name="CustomCardView" parent="@style/Widget.MaterialComponents.CardView">
+	<style name="customCardView" parent="@style/Widget.MaterialComponents.CardView">
 		<item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.MaterialCardView.Cut
 		</item>
 	</style>
@@ -32,5 +32,13 @@
 		<item name="cornerSizeBottomRight">0dp</item>
 		<item name="cornerSizeBottomLeft">0dp</item>
 	</style>
-	
+
+	<style name="customMaterialTextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+		<item name="boxCornerRadiusBottomEnd">10dp</item>
+		<item name="boxCornerRadiusBottomStart">10dp</item>
+		<item name="boxCornerRadiusTopEnd">10dp</item>
+		<item name="boxCornerRadiusTopStart">10dp</item>
+		<item name="startIconTint">?attr/colorPrimary</item>
+	</style>
+
 </resources>
