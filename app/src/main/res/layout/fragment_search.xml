@@ -22,7 +22,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="Location"
-			android:inputType="text" />
+			android:inputType="text"
+			android:textColor="?attr/colorSecondary" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
@@ -43,7 +44,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="Magnitude(Min)"
-			android:inputType="numberDecimal" />
+			android:inputType="numberDecimal"
+			android:textColor="?attr/colorSecondary" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +66,8 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:hint="Magnitude(Max)"
-			android:inputType="numberDecimal" />
+			android:inputType="numberDecimal"
+			android:textColor="?attr/colorSecondary" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 
@@ -85,7 +88,8 @@
 			android:clickable="true"
 			android:focusable="false"
 			android:hint="Pick Date"
-			android:inputType="date" />
+			android:inputType="date"
+			android:textColor="?attr/colorSecondary" />
 
 	</com.google.android.material.textfield.TextInputLayout>
 

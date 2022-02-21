@@ -28,7 +28,7 @@
 		style="@style/customCardView"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:backgroundTint="@color/teal_200"
+		android:backgroundTint="?attr/colorPrimary"
 		app:cardElevation="100dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
@@ -45,6 +45,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="Location Label"
+				android:textColor="?attr/colorOnPrimary"
 				app:layout_constraintBottom_toTopOf="@+id/textView6"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="0.5"
@@ -56,6 +57,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="Location"
+				android:textColor="?attr/colorOnPrimary"
 				android:textSize="16sp"
 				android:textStyle="bold"
 				app:layout_constraintBottom_toTopOf="@id/guideline"
@@ -78,6 +80,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="16dp"
 				android:text="Depth"
+				android:textColor="?attr/colorOnPrimary"
 				app:layout_constraintStart_toEndOf="@+id/textView2"
 				app:layout_constraintTop_toTopOf="@+id/textView2" />
 
@@ -87,6 +90,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="16dp"
 				android:text="Felt"
+				android:textColor="?attr/colorOnPrimary"
 				app:layout_constraintBottom_toBottomOf="@+id/textView2"
 				app:layout_constraintStart_toEndOf="@+id/textView2" />
 
@@ -99,6 +103,7 @@
 				android:gravity="center"
 				android:text="Scale"
 				android:textAlignment="center"
+				android:textColor="?attr/colorOnPrimary"
 				android:textSize="16sp"
 				android:textStyle="bold"
 				app:layout_constraintBottom_toTopOf="@id/guideline2"
@@ -119,6 +124,7 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="4dp"
 				android:text="Time"
+				android:textColor="?attr/colorOnPrimary"
 				app:layout_constraintBottom_toTopOf="@+id/textView4"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -129,6 +135,7 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="4dp"
 				android:text="Time"
+				android:textColor="?attr/colorOnPrimary"
 				app:layout_constraintBottom_toTopOf="@+id/materialButton"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -139,6 +146,7 @@
 				android:layout_height="wrap_content"
 				android:background="?android:attr/selectableItemBackground"
 				android:hint="Share"
+				android:textColorHint="?attr/colorOnPrimary"
 				app:icon="@drawable/ic_baseline_share_24"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
