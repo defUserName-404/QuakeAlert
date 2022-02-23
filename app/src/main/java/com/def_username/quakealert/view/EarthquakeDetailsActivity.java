@@ -7,7 +7,9 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.def_username.quakealert.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Objects;
@@ -94,6 +97,7 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 	@Override
 	public void onMapReady(@NonNull GoogleMap googleMap) {
 		LatLng sydney = new LatLng(-33.852, 151.211);
+		googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps_custom_style));
 		googleMap.addMarker(new MarkerOptions()
 				.position(sydney)
 				.title("Marker in Sydney"));

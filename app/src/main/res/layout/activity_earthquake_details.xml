@@ -14,8 +14,7 @@
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintHeight_percent="0.64"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		map:mapId="@string/map_id" />
+		app:layout_constraintTop_toTopOf="parent" />
 
 	<ImageButton
 		android:layout_width="wrap_content"
@@ -32,7 +31,7 @@
 		style="@style/customCardView"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:backgroundTint="?attr/colorPrimary"
+		android:backgroundTint="?attr/colorSecondary"
 		app:cardElevation="100dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
