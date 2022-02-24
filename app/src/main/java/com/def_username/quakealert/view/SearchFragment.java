@@ -95,24 +95,8 @@ public class SearchFragment extends Fragment {
 	}
 
 	private void extractAndSendSearchRequest() {
-		List<Address> addresses;
-		Geocoder geocoder = new Geocoder(requireActivity().getApplicationContext(), Locale.getDefault());
-		latitude = "";
-		longitude = "";
-
-		try {
-			addresses = geocoder.getFromLocationName(mLocationTextInput.getText().toString(), 1);
-
-			if (addresses.isEmpty()) {
-				latitude = "";
-				longitude = "";
-			} else {
-				longitude = Double.toString(addresses.get(0).getLongitude());
-				latitude = Double.toString(addresses.get(0).getLatitude());
-			}
-		} catch (IOException ioException) {
-			ioException.printStackTrace();
-		}
+		latitude = ParseData.getLocation(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString())[0];
+		longitude = ParseData.getLocation(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString())[1];
 
 		minMagnitude = mMinMagnitudeTextInput.getText().toString();
 		maxMagnitude = mMaxMagnitudeTextInput.getText().toString();

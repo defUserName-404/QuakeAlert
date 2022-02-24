@@ -7,11 +7,12 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.TextView;
 
 import com.def_username.quakealert.R;
+import com.def_username.quakealert.viewmodel.ParseData;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -32,9 +33,12 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_earthquake_details);
+
 		mMapView = findViewById(R.id.mapView);
 		getLocationPermission();
 		initGoogleMap(savedInstanceState);
+		showDataOnDetails();
+
 		Objects.requireNonNull(getSupportActionBar()).setTitle("Details");
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_24);
@@ -48,7 +52,6 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 
 	private void initGoogleMap(Bundle savedInstanceState) {
 		mMapView.onCreate(savedInstanceState);
-
 		mMapView.getMapAsync(this);
 	}
 
@@ -96,12 +99,16 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 
 	@Override
 	public void onMapReady(@NonNull GoogleMap googleMap) {
-		LatLng sydney = new LatLng(-33.852, 151.211);
+		String locationName = (getText("LOCATION_NAME"));
+		double latitude = Double.parseDouble(ParseData.getLocation(this, locationName)[0]);
+		double longitude = Double.parseDouble(ParseData.getLocation(this, locationName)[1]);
+		LatLng location = new LatLng(latitude, longitude);
+
 		googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps_custom_style));
-		googleMap.addMarker(new MarkerOptions()
-				.position(sydney)
-				.title("Marker in Sydney"));
-		googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+		googleMap.addMarker(new MarkerOptions().position(location));
+		googleMap.getUiSettings().setMapToolbarEnabled(false);
+		googleMap.getUiSettings().setZoomControlsEnabled(true);
+		googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
 	}
 
 	private void getLocationPermission() {
@@ -124,5 +131,27 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 				}
 			}
 		}
+	}
+
+	private void showDataOnDetails() {
+		TextView locationOffsetTextView = findViewById(R.id.textView_LocationLabel);
+		TextView locationNameTextView = findViewById(R.id.textView_LocationName);
+		TextView scaleTextView = findViewById(R.id.textView_Scale);
+		TextView dateTextView = findViewById(R.id.textView_Date);
+		TextView timeTextView = findViewById(R.id.textView_time);
+		locationOffsetTextView.setText(getText("LOCATION_OFFSET"));
+		locationNameTextView.setText(getText("LOCATION_NAME"));
+		scaleTextView.setText(getText("SCALE"));
+		String[] parts = getText("TIME").split("\n");
+		dateTextView.setText(parts[0]);
+		timeTextView.setText(parts[1]);
+
+		int color = ParseData.getBGColor((Double.parseDouble(scaleTextView.getText().toString())));
+		GradientDrawable bgShape = (GradientDrawable) scaleTextView.getBackground();
+		bgShape.setColor(color);
+	}
+
+	private String getText(String key) {
+		return getIntent().getExtras().getString(key);
 	}
 }

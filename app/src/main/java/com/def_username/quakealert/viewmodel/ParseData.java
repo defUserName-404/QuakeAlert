@@ -1,6 +1,9 @@
 package com.def_username.quakealert.viewmodel;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.util.Log;
 
 import com.def_username.quakealert.model.Earthquake;
@@ -9,10 +12,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class ParseData {
@@ -107,6 +112,25 @@ public class ParseData {
 			return string;
 
 		return string.substring(0, 1).toUpperCase() + string.substring(1);
+	}
+
+	public static String[] getLocation(Context context, String locationName) {
+		String latitude = "", longitude = "";
+		List<Address> addresses;
+		Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+
+		try {
+			addresses = geocoder.getFromLocationName(locationName, 1);
+
+			if (!addresses.isEmpty()) {
+				latitude = Double.toString(addresses.get(0).getLatitude());
+				longitude = Double.toString(addresses.get(0).getLongitude());
+			}
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
+		}
+
+		return new String[]{latitude, longitude};
 	}
 
 	public static int getBGColor(double magnitude) {

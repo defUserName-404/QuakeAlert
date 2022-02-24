@@ -2,6 +2,7 @@ package com.def_username.quakealert.viewmodel;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,7 @@ import java.util.Locale;
 public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListListener {
 	private final View root;
 	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time");
+	private ArrayList<String> places, placesOffset, times, scales;
 
 	public ResponseProcessing(View view) {
 		root = view;
@@ -67,10 +69,10 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		ParseData.setSampleJsonResponse(response);
 
 		ArrayList<Earthquake> earthquakes = ParseData.extractEarthquakes();
-		ArrayList<String> places = new ArrayList<>();
-		ArrayList<String> placesOffset = new ArrayList<>();
-		ArrayList<String> times = new ArrayList<>();
-		ArrayList<String> scales = new ArrayList<>();
+		places = new ArrayList<>();
+		placesOffset = new ArrayList<>();
+		times = new ArrayList<>();
+		scales = new ArrayList<>();
 
 		for (Earthquake earthquake : earthquakes) {
 			Date dateObject = new Date(earthquake.getTimeInMilliseconds());
@@ -122,6 +124,12 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 	public void showEarthquakeDetails(int position) {
 		Context context = root.getContext();
 		Intent intent = new Intent(context, EarthquakeDetailsActivity.class);
+		Bundle bundle = new Bundle();
+		bundle.putString("LOCATION_OFFSET", placesOffset.get(position));
+		bundle.putString("LOCATION_NAME", places.get(position));
+		bundle.putString("SCALE", scales.get(position));
+		bundle.putString("TIME", times.get(position));
+		intent.putExtras(bundle);
 		context.startActivity(intent);
 	}
 }
