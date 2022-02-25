@@ -1,7 +1,5 @@
 package com.def_username.quakealert.view;
 
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -18,10 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.io.IOException;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class SearchFragment extends Fragment {
 	private static final short ANIMATION_DURATION = 200;
@@ -95,8 +90,8 @@ public class SearchFragment extends Fragment {
 	}
 
 	private void extractAndSendSearchRequest() {
-		latitude = ParseData.getLocation(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString())[0];
-		longitude = ParseData.getLocation(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString())[1];
+		latitude = ParseData.getLatitudeLongitudeFromPlaceName(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString())[0];
+		longitude = ParseData.getLatitudeLongitudeFromPlaceName(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString())[1];
 
 		minMagnitude = mMinMagnitudeTextInput.getText().toString();
 		maxMagnitude = mMaxMagnitudeTextInput.getText().toString();

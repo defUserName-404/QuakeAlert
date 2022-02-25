@@ -1,14 +1,18 @@
 package com.def_username.quakealert.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.def_username.quakealert.R;
@@ -20,6 +24,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.Objects;
 
@@ -99,9 +104,9 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 
 	@Override
 	public void onMapReady(@NonNull GoogleMap googleMap) {
-		String locationName = (getText("LOCATION_NAME"));
-		double latitude = Double.parseDouble(ParseData.getLocation(this, locationName)[0]);
-		double longitude = Double.parseDouble(ParseData.getLocation(this, locationName)[1]);
+		String locationName = getText("LOCATION_NAME");
+		double latitude = Double.parseDouble(ParseData.getLatitudeLongitudeFromPlaceName(this, locationName)[0]);
+		double longitude = Double.parseDouble(ParseData.getLatitudeLongitudeFromPlaceName(this, locationName)[1]);
 		LatLng location = new LatLng(latitude, longitude);
 
 		googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps_custom_style));
@@ -134,6 +139,7 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 	}
 
 	private void showDataOnDetails() {
+		MaterialCardView materialCardView = findViewById(R.id.materialCardView);
 		TextView locationOffsetTextView = findViewById(R.id.textView_LocationLabel);
 		TextView locationNameTextView = findViewById(R.id.textView_LocationName);
 		TextView scaleTextView = findViewById(R.id.textView_Scale);
@@ -149,9 +155,19 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		int color = ParseData.getBGColor((Double.parseDouble(scaleTextView.getText().toString())));
 		GradientDrawable bgShape = (GradientDrawable) scaleTextView.getBackground();
 		bgShape.setColor(color);
+
+		if (getSystemColorTheme() == Configuration.UI_MODE_NIGHT_NO) {
+			materialCardView.setCardBackgroundColor(getResources().getColor(R.color.blue_700));
+		} else {
+			materialCardView.setCardBackgroundColor(getResources().getColor(R.color.primary_material_dark));
+		}
 	}
 
 	private String getText(String key) {
 		return getIntent().getExtras().getString(key);
+	}
+
+	private int getSystemColorTheme() {
+		return (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
 	}
 }

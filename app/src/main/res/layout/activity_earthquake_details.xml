@@ -11,31 +11,21 @@
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHeight_percent="0.64"
+		app:layout_constraintHeight_percent="0.6"
 		app:layout_constraintStart_toStartOf="parent"
 		app:layout_constraintTop_toTopOf="parent" />
-
-<!--	<ImageButton-->
-<!--		android:layout_width="wrap_content"-->
-<!--		android:layout_height="wrap_content"-->
-<!--		android:backgroundTint="?attr/colorOnPrimary"-->
-<!--		android:contentDescription="Set map on full screen"-->
-<!--		android:src="@drawable/ic_baseline_fullscreen_24"-->
-<!--		app:layout_constraintEnd_toEndOf="parent"-->
-<!--		app:layout_constraintTop_toTopOf="parent"-->
-<!--		app:tint="?attr/colorPrimary" />-->
 
 	<com.google.android.material.card.MaterialCardView
 		android:id="@+id/materialCardView"
 		style="@style/customCardView"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:backgroundTint="?attr/colorSecondary"
+		android:layout_marginTop="-8dp"
 		app:cardElevation="100dp"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHeight_percent="0.4"
-		app:layout_constraintStart_toStartOf="parent">
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/mapView">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
 			android:layout_width="match_parent"
@@ -47,7 +37,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="Location Label"
-				android:textColor="?attr/colorOnPrimary"
+				android:textColor="@color/white"
 				app:layout_constraintBottom_toTopOf="@+id/textView_LocationName"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="0.5"
@@ -59,7 +49,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="Location"
-				android:textColor="?attr/colorOnPrimary"
+				android:textColor="@color/white"
 				android:textSize="16sp"
 				android:textStyle="bold"
 				app:layout_constraintBottom_toTopOf="@id/guideline"
@@ -82,7 +72,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="16dp"
 				android:text="Depth"
-				android:textColor="?attr/colorOnPrimary"
+				android:textColor="@color/white"
 				app:layout_constraintStart_toEndOf="@+id/textView_Scale"
 				app:layout_constraintTop_toTopOf="@+id/textView_Scale" />
 
@@ -92,7 +82,7 @@
 				android:layout_height="wrap_content"
 				android:layout_marginStart="16dp"
 				android:text="Felt"
-				android:textColor="?attr/colorOnPrimary"
+				android:textColor="@color/white"
 				app:layout_constraintBottom_toBottomOf="@+id/textView_Scale"
 				app:layout_constraintStart_toEndOf="@+id/textView_Scale" />
 
@@ -105,7 +95,7 @@
 				android:gravity="center"
 				android:text="Scale"
 				android:textAlignment="center"
-				android:textColor="?attr/colorOnPrimary"
+				android:textColor="@color/black"
 				android:textSize="16sp"
 				android:textStyle="bold"
 				app:layout_constraintBottom_toTopOf="@id/guideline2"
@@ -126,7 +116,7 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="4dp"
 				android:text="Time"
-				android:textColor="?attr/colorOnPrimary"
+				android:textColor="@color/white"
 				app:layout_constraintBottom_toTopOf="@+id/textView_time"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/textView_Scale" />
@@ -137,7 +127,7 @@
 				android:layout_height="wrap_content"
 				android:layout_margin="4dp"
 				android:text="Time"
-				android:textColor="?attr/colorOnPrimary"
+				android:textColor="@color/white"
 				app:layout_constraintBottom_toTopOf="@+id/materialButton"
 				app:layout_constraintStart_toStartOf="parent"
 				app:layout_constraintTop_toBottomOf="@+id/textView_Date" />
@@ -148,8 +138,9 @@
 				android:layout_height="wrap_content"
 				android:background="?android:attr/selectableItemBackground"
 				android:hint="Share"
-				android:textColorHint="?attr/colorOnPrimary"
+				android:textColorHint="@color/white"
 				app:icon="@drawable/ic_baseline_share_24"
+				app:iconTint="@color/white"
 				app:layout_constraintBottom_toBottomOf="parent"
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="0.5"

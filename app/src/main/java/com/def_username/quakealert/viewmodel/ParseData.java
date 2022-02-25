@@ -114,7 +114,7 @@ public class ParseData {
 		return string.substring(0, 1).toUpperCase() + string.substring(1);
 	}
 
-	public static String[] getLocation(Context context, String locationName) {
+	public static String[] getLatitudeLongitudeFromPlaceName(Context context, String locationName) {
 		String latitude = "", longitude = "";
 		List<Address> addresses;
 		Geocoder geocoder = new Geocoder(context, Locale.getDefault());
@@ -123,8 +123,12 @@ public class ParseData {
 			addresses = geocoder.getFromLocationName(locationName, 1);
 
 			if (!addresses.isEmpty()) {
-				latitude = Double.toString(addresses.get(0).getLatitude());
-				longitude = Double.toString(addresses.get(0).getLongitude());
+				try {
+					latitude = Double.toString(addresses.get(0).getLatitude());
+					longitude = Double.toString(addresses.get(0).getLongitude());
+				} catch (IllegalStateException stateException) {
+					stateException.printStackTrace();
+				}
 			}
 		} catch (IOException ioException) {
 			ioException.printStackTrace();
