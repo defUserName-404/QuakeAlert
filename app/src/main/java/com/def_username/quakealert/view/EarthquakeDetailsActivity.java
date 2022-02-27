@@ -1,7 +1,6 @@
 package com.def_username.quakealert.view;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -10,9 +9,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.drawable.GradientDrawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.def_username.quakealert.R;
@@ -105,9 +102,8 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 	@Override
 	public void onMapReady(@NonNull GoogleMap googleMap) {
 		String locationName = getText("LOCATION_NAME");
-		double latitude = Double.parseDouble(ParseData.getLatitudeLongitudeFromPlaceName(this, locationName)[0]);
-		double longitude = Double.parseDouble(ParseData.getLatitudeLongitudeFromPlaceName(this, locationName)[1]);
-		LatLng location = new LatLng(latitude, longitude);
+		double[] latitudeAndLongitude = ParseData.getLatitudeLongitudeFromPlaceName(this, locationName);
+		LatLng location = new LatLng(latitudeAndLongitude[0], latitudeAndLongitude[1]);
 
 		googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps_custom_style));
 		googleMap.addMarker(new MarkerOptions().position(location));

@@ -114,27 +114,30 @@ public class ParseData {
 		return string.substring(0, 1).toUpperCase() + string.substring(1);
 	}
 
-	public static String[] getLatitudeLongitudeFromPlaceName(Context context, String locationName) {
-		String latitude = "", longitude = "";
+	public static synchronized double[] getLatitudeLongitudeFromPlaceName(Context context, String locationName) {
+		double latitude = 0, longitude = 0;
 		List<Address> addresses;
 		Geocoder geocoder = new Geocoder(context, Locale.getDefault());
 
 		try {
-			addresses = geocoder.getFromLocationName(locationName, 1);
+			addresses = geocoder.getFromLocationName(locationName, 10);
+			int count = 1;
 
 			if (!addresses.isEmpty()) {
-				try {
-					latitude = Double.toString(addresses.get(0).getLatitude());
-					longitude = Double.toString(addresses.get(0).getLongitude());
-				} catch (IllegalStateException stateException) {
-					stateException.printStackTrace();
-				}
+				latitude = addresses.get(0).getLatitude();
+				longitude = addresses.get(0).getLongitude();
+			}
+
+			while ((latitude == 0 && longitude == 0) && (count < addresses.size())) {
+				latitude = addresses.get(count).getLatitude();
+				longitude = addresses.get(count).getLongitude();
+				count++;
 			}
 		} catch (IOException ioException) {
 			ioException.printStackTrace();
 		}
 
-		return new String[]{latitude, longitude};
+		return new double[]{latitude, longitude};
 	}
 
 	public static int getBGColor(double magnitude) {
