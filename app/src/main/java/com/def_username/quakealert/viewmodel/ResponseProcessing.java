@@ -26,7 +26,7 @@ import java.util.Locale;
 public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListListener {
 	private final View root;
 	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time");
-	private ArrayList<String> places, placesOffset, times, scales;
+	private ArrayList<String> places, placesOffset, times, scales, urls;
 
 	public ResponseProcessing(View view) {
 		root = view;
@@ -73,6 +73,7 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		placesOffset = new ArrayList<>();
 		times = new ArrayList<>();
 		scales = new ArrayList<>();
+		urls = new ArrayList<>();
 
 		for (Earthquake earthquake : earthquakes) {
 			Date dateObject = new Date(earthquake.getTimeInMilliseconds());
@@ -82,6 +83,7 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 			String magnitude = ParseData.formatMagnitude(earthquake.getMagnitude());
 			String primaryLocation = ParseData.formatLocation(originalLocation)[0];
 			String locationOffset = ParseData.formatLocation(originalLocation)[1];
+			String url = earthquake.getUrl();
 
 			if (earthquake.getMagnitude() < 0)
 				continue;
@@ -90,10 +92,11 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 			placesOffset.add(locationOffset);
 			times.add(formattedDate + "\n" + formattedTime);
 			scales.add(magnitude);
+			urls.add(url);
 		}
 
 		ShowEarthquakeAdapter showEarthquakeAdapter =
-				new ShowEarthquakeAdapter(root.getContext(), places, placesOffset, times, scales, this);
+				new ShowEarthquakeAdapter(root.getContext(), places, placesOffset, times, scales, urls, this);
 		recyclerView.setAdapter(showEarthquakeAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
@@ -129,6 +132,7 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		bundle.putString("LOCATION_NAME", places.get(position));
 		bundle.putString("SCALE", scales.get(position));
 		bundle.putString("TIME", times.get(position));
+		bundle.putString("URL", urls.get(position));
 		intent.putExtras(bundle);
 		context.startActivity(intent);
 	}

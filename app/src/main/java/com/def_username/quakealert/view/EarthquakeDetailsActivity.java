@@ -110,6 +110,7 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		googleMap.getUiSettings().setMapToolbarEnabled(false);
 		googleMap.getUiSettings().setZoomControlsEnabled(true);
 		googleMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+		googleMap.animateCamera(CameraUpdateFactory.zoomTo(10.0f));
 	}
 
 	private void getLocationPermission() {
@@ -141,12 +142,14 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		TextView scaleTextView = findViewById(R.id.textView_Scale);
 		TextView dateTextView = findViewById(R.id.textView_Date);
 		TextView timeTextView = findViewById(R.id.textView_time);
+		TextView depthTextView = findViewById(R.id.textView_Depth);
 		locationOffsetTextView.setText(getText("LOCATION_OFFSET"));
 		locationNameTextView.setText(getText("LOCATION_NAME"));
 		scaleTextView.setText(getText("SCALE"));
 		String[] parts = getText("TIME").split("\n");
 		dateTextView.setText(parts[0]);
 		timeTextView.setText(parts[1]);
+		depthTextView.setText(getText("URL"));
 
 		int color = ParseData.getBGColor((Double.parseDouble(scaleTextView.getText().toString())));
 		GradientDrawable bgShape = (GradientDrawable) scaleTextView.getBackground();

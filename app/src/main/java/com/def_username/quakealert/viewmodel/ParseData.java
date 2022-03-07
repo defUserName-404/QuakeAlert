@@ -56,8 +56,9 @@ public class ParseData {
 				double magnitude = properties.getDouble("mag");
 				String location = properties.getString("place");
 				long time = properties.getLong("time");
+				String url = properties.getString("detail");
 
-				Earthquake earthquake = new Earthquake(magnitude, location, time);
+				Earthquake earthquake = new Earthquake(magnitude, location, time, url);
 				earthquakes.add(earthquake);
 			}
 		} catch (JSONException e) {
@@ -114,7 +115,7 @@ public class ParseData {
 		return string.substring(0, 1).toUpperCase() + string.substring(1);
 	}
 
-	public static synchronized double[] getLatitudeLongitudeFromPlaceName(Context context, String locationName) {
+	public static double[] getLatitudeLongitudeFromPlaceName(Context context, String locationName) {
 		double latitude = 0, longitude = 0;
 		List<Address> addresses;
 		Geocoder geocoder = new Geocoder(context, Locale.getDefault());
