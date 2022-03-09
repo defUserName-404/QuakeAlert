@@ -56,9 +56,13 @@ public class ParseData {
 				double magnitude = properties.getDouble("mag");
 				String location = properties.getString("place");
 				long time = properties.getLong("time");
-				String url = properties.getString("detail");
+				JSONArray coordinatesJsonArray = currentEarthquake.getJSONObject("geometry").getJSONArray("coordinates");
+				double[] coordinates = new double[3];
 
-				Earthquake earthquake = new Earthquake(magnitude, location, time, url);
+				for (int j = 0; j < 3; j++)
+					coordinates[j] = Double.parseDouble(formatDecimal(coordinatesJsonArray.getDouble(j)));
+
+				Earthquake earthquake = new Earthquake(magnitude, location, time, coordinates);
 				earthquakes.add(earthquake);
 			}
 		} catch (JSONException e) {
@@ -86,8 +90,8 @@ public class ParseData {
 		return timeFormat.format(dateObject);
 	}
 
-	public static String formatMagnitude(double magnitude) {
-		return new DecimalFormat("0.0").format(magnitude);
+	public static String formatDecimal(double decimalNumber) {
+		return new DecimalFormat("0.0").format(decimalNumber);
 	}
 
 	public static String[] formatLocation(String originalLocation) {

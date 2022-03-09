@@ -30,8 +30,11 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 	private static final String COARSE_LOCATION = Manifest.permission.ACCESS_COARSE_LOCATION;
 	private static final int LOCATION_PERMISSION_REQUEST_CODE = 1234;
 	private MapView mMapView;
+	private TextView locationOffsetTextView, locationNameTextView, scaleTextView, dateTextView, timeTextView, depthTextView, feltTextView;
+	private MaterialCardView materialCardView;
 
 	@Override
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_earthquake_details);
@@ -117,56 +120,70 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		String[] permissions = {FINE_LOCATION, COARSE_LOCATION};
 
 		if (ContextCompat.checkSelfPermission(this.getApplicationContext(), FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-				&& ContextCompat.checkSelfPermission(this.getApplicationContext(), COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+				&& ContextCompat.checkSelfPermission(this.getApplicationContext(), COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
 			ActivityCompat.requestPermissions(this, permissions, LOCATION_PERMISSION_REQUEST_CODE);
-		}
 	}
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-		if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
-			for (int grantResult : grantResults) {
-				if (grantResult != PackageManager.PERMISSION_GRANTED) {
+		if (requestCode == LOCATION_PERMISSION_REQUEST_CODE)
+			for (int grantResult : grantResults)
+				if (grantResult != PackageManager.PERMISSION_GRANTED)
 					return;
-				}
-			}
-		}
+	}
+
+	private void initViews() {
+		materialCardView = findViewById(R.id.materialCardView);
+		locationOffsetTextView = findViewById(R.id.textView_LocationLabel);
+		locationNameTextView = findViewById(R.id.textView_LocationName);
+		scaleTextView = findViewById(R.id.textView_Scale);
+		dateTextView = findViewById(R.id.textView_Date);
+		timeTextView = findViewById(R.id.textView_time);
+		depthTextView = findViewById(R.id.textView_Depth);
+		feltTextView = findViewById(R.id.textView_Felt);
 	}
 
 	private void showDataOnDetails() {
-		MaterialCardView materialCardView = findViewById(R.id.materialCardView);
-		TextView locationOffsetTextView = findViewById(R.id.textView_LocationLabel);
-		TextView locationNameTextView = findViewById(R.id.textView_LocationName);
-		TextView scaleTextView = findViewById(R.id.textView_Scale);
-		TextView dateTextView = findViewById(R.id.textView_Date);
-		TextView timeTextView = findViewById(R.id.textView_time);
-		TextView depthTextView = findViewById(R.id.textView_Depth);
+		initViews();
 		locationOffsetTextView.setText(getText("LOCATION_OFFSET"));
 		locationNameTextView.setText(getText("LOCATION_NAME"));
 		scaleTextView.setText(getText("SCALE"));
 		String[] parts = getText("TIME").split("\n");
 		dateTextView.setText(parts[0]);
 		timeTextView.setText(parts[1]);
-		depthTextView.setText(getText("URL"));
-
-		int color = ParseData.getBGColor((Double.parseDouble(scaleTextView.getText().toString())));
-		GradientDrawable bgShape = (GradientDrawable) scaleTextView.getBackground();
-		bgShape.setColor(color);
-
-		if (getSystemColorTheme() == Configuration.UI_MODE_NIGHT_NO) {
-			materialCardView.setCardBackgroundColor(getResources().getColor(R.color.blue_700));
-		} else {
-			materialCardView.setCardBackgroundColor(getResources().getColor(R.color.primary_material_dark));
-		}
+		depthTextView.setText(String.format("Source is %s%s", getDepthText(), getString(R.string.depth_text)));
+		feltTextView.setText(getDepthText());
+		setShapeBGColor();
+		setCardViewBGColor();
 	}
 
 	private String getText(String key) {
 		return getIntent().getExtras().getString(key);
 	}
 
+	private String getDepthText() {
+		double depth = getIntent().getDoubleArrayExtra("COORDINATES")[2];
+		if (depth < 0)
+			depth *= -1;
+		return String.valueOf(depth);
+	}
+
 	private int getSystemColorTheme() {
 		return (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK);
+	}
+
+	private void setShapeBGColor() {
+		int color = ParseData.getBGColor((Double.parseDouble(scaleTextView.getText().toString())));
+		GradientDrawable bgShape = (GradientDrawable) scaleTextView.getBackground();
+		bgShape.setColor(color);
+	}
+
+	private void setCardViewBGColor() {
+		if (getSystemColorTheme() == Configuration.UI_MODE_NIGHT_NO)
+			materialCardView.setCardBackgroundColor(getResources().getColor(R.color.blue_700));
+		else
+			materialCardView.setCardBackgroundColor(getResources().getColor(R.color.primary_material_dark));
 	}
 }

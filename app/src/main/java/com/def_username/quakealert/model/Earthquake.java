@@ -4,14 +4,14 @@ public class Earthquake {
 	private final double mMagnitude;
 	private final String mLocation;
 	private final long mTimeInMilliseconds;
-	private final String url;
+	private final double[] coordinates;
 
 
-	public Earthquake(double magnitude, String location, long timeInMilliseconds, String url) {
+	public Earthquake(double magnitude, String location, long timeInMilliseconds, double[] coordinates) {
 		mMagnitude = magnitude;
 		mLocation = location;
 		mTimeInMilliseconds = timeInMilliseconds;
-		this.url = url;
+		this.coordinates = coordinates;
 	}
 
 	public double getMagnitude() {
@@ -25,8 +25,8 @@ public class Earthquake {
 	public long getTimeInMilliseconds() {
 		return mTimeInMilliseconds;
 	}
-	
-	public String getUrl() {
-		return url;
+
+	public double[] getCoordinates() {
+		return coordinates;
 	}
 }

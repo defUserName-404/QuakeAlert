@@ -17,17 +17,18 @@ import java.util.ArrayList;
 
 public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAdapter.EarthquakeListViewHolder> {
 	private final Context context;
-	private final ArrayList<String> places, times, scales, placesOffset, url;
+	private final ArrayList<String> places, times, scales, placesOffset;
+	private final ArrayList<double[]> coordinates;
 	private final OnEarthquakeListListener onEarthquakeListListener;
 
 	public ShowEarthquakeAdapter(Context context, ArrayList<String> places, ArrayList<String> placesOffset, ArrayList<String> times,
-								 ArrayList<String> scales, ArrayList<String> url, OnEarthquakeListListener onEarthquakeListListener) {
+								 ArrayList<String> scales, ArrayList<double[]> coordinates, OnEarthquakeListListener onEarthquakeListListener) {
 		this.context = context;
 		this.places = places;
 		this.placesOffset = placesOffset;
 		this.times = times;
 		this.scales = scales;
-		this.url = url;
+		this.coordinates = coordinates;
 		this.onEarthquakeListListener = onEarthquakeListListener;
 	}
 
