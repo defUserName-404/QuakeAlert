@@ -2,6 +2,7 @@ package com.def_username.quakealert.view;
 
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,7 @@ public class SearchFragment extends Fragment {
 	private static final short ANIMATION_DURATION = 200;
 	protected static boolean IS_INPUT_VALID = true;
 	protected static TextInputEditText mLocationTextInput, mDateTextInput, mMinMagnitudeTextInput, mMaxMagnitudeTextInput;
-	protected static String latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate;
+	protected static String latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy;
 	private Fragment searchResultsFragment;
 	private long startTime = 0L, endTime = 0L;
 
@@ -44,7 +45,8 @@ public class SearchFragment extends Fragment {
 			InputValidator.validateInput();
 
 			if (IS_INPUT_VALID) {
-				searchResultsFragment = new ShowEarthquakesFragment(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
+				sortBy = SearchActivity.getSortMethod();
+				searchResultsFragment = new ShowEarthquakesFragment(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy);
 
 				requireActivity().getSupportFragmentManager()
 						.beginTransaction()
@@ -93,10 +95,8 @@ public class SearchFragment extends Fragment {
 		double[] latitudeAndLongitude = ParseData.getLatitudeLongitudeFromPlaceName(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString());
 		latitude = (latitudeAndLongitude[0] == 0) ? "" : String.valueOf(latitudeAndLongitude[0]);
 		longitude = (latitudeAndLongitude[1] == 0) ? "" : String.valueOf(latitudeAndLongitude[1]);
-
 		minMagnitude = mMinMagnitudeTextInput.getText().toString();
 		maxMagnitude = mMaxMagnitudeTextInput.getText().toString();
-
 		startDate = (startTime == 0) ? "" : ParseData.formatDateForResponse(new Date(startTime));
 		endDate = (endTime == 0) ? "" : ParseData.formatDateForResponse(new Date(endTime));
 	}

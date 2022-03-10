@@ -27,7 +27,7 @@
 		android:textColor="?attr/colorOnPrimary"
 		android:visibility="gone"
 		app:cornerRadius="8dp"
-		app:icon="@drawable/icons8_search_64"
+		app:icon="@drawable/ic_baseline_search_24"
 		app:iconTint="?attr/colorOnPrimary"
 		app:layout_constraintBottom_toBottomOf="parent"
 		app:layout_constraintEnd_toEndOf="parent" />

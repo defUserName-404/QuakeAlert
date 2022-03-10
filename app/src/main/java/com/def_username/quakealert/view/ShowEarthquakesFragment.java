@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ShowEarthquakesFragment extends Fragment {
-	private final String latitude, longitude, minMagnitude, maxMagnitude, endDate, startDate;
+	private final String latitude, longitude, minMagnitude, maxMagnitude, endDate, startDate, sortBy;
 	private RecyclerView mRecyclerView;
 	private static boolean IMPLEMENT_SCROLL_LISTENER_FLAG = false;
 
@@ -30,16 +30,18 @@ public class ShowEarthquakesFragment extends Fragment {
 
 		endDate = ParseData.formatDateForResponse(new Date(time));
 		startDate = ParseData.formatDateForResponse(new Date(time - 86400000 * 2));
+		sortBy = "";
 	}
 
 	public ShowEarthquakesFragment(String latitude, String longitude, String minMagnitude, String maxMagnitude,
-								   String startDate, String endDate) {
+								   String startDate, String endDate, String sortBy) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 		this.maxMagnitude = maxMagnitude;
 		this.minMagnitude = minMagnitude;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.sortBy = sortBy;
 
 		IMPLEMENT_SCROLL_LISTENER_FLAG = true;
 	}
@@ -54,7 +56,7 @@ public class ShowEarthquakesFragment extends Fragment {
 		}
 
 		ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
-		responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
+		responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy);
 
 		return rootView;
 	}

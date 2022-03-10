@@ -16,6 +16,7 @@ import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.SingletonRequestData;
 import com.def_username.quakealert.view.EarthquakeDetailsActivity;
+import com.def_username.quakealert.view.SearchActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONObject;
@@ -26,7 +27,7 @@ import java.util.Locale;
 
 public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListListener {
 	private final View root;
-	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time");
+	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson");
 	private ArrayList<String> places, placesOffset, times, scales;
 	private ArrayList<double[]> coordinates;
 
@@ -34,8 +35,8 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		root = view;
 	}
 
-	public void sendRequest(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate) {
-		processingURL(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate);
+	public void sendRequest(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate, String sortBy) {
+		processingURL(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy);
 		LinearProgressIndicator mLinearProgressIndicatorRequestLoading = root.findViewById(R.id.networkConnectivity_mProgressIndicator);
 
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, URL.toString(), null,
@@ -51,7 +52,7 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
 	}
 
-	private void processingURL(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate) {
+	private void processingURL(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate, String sortBy) {
 		if (!latitude.equals(""))
 			URL.append("&latitude=").append(latitude);
 		if (!longitude.equals(""))
@@ -64,8 +65,10 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 			URL.append("&starttime=").append(startDate);
 		if (!endDate.equals(""))
 			URL.append("&endtime=").append(endDate);
+		if (!sortBy.equals(""))
+			URL.append("&orderby=").append(sortBy);
 
-		Log.e("URL", URL.toString());
+		Log.i("URL", URL.toString());
 	}
 
 	private void onResponseReceived(JSONObject response) {

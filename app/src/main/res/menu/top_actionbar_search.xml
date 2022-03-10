@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/sortMenuIcon"
+		android:icon="@drawable/ic_baseline_sort_24"
+		android:iconTint="?attr/colorOnPrimary"
+		android:title="Sort"
+		app:showAsAction="always">
+
+		<menu>
+			<group
+				android:id="@+id/category"
+				android:checkableBehavior="single">
+				<item
+					android:id="@+id/sortByTime"
+					android:checked="true"
+					android:icon="@drawable/ic_baseline_access_time_2_24"
+					android:onClick="onSortByTimeClicked"
+					android:title="Sort By Time" />
+				<item
+					android:id="@+id/sortByMagnitude"
+					android:icon="@drawable/ic_baseline_square_foot_24"
+					android:onClick="onSortByMagnitudeClicked"
+					android:title="Sort By Magnitude" />
+			</group>
+			<group
+				android:id="@+id/order"
+				android:checkableBehavior="single">
+				<item
+					android:id="@+id/ascending"
+					android:icon="@drawable/ic_baseline_arrow_upward_24"
+					android:onClick="onAscendingOrderClicked"
+					android:title="Ascending" />
+				<item
+					android:id="@+id/descending"
+					android:checked="true"
+					android:onClick="onDescendingOrderClicked"
+					android:icon="@drawable/ic_baseline_arrow_downward_24"
+					android:title="Descending" />
+			</group>
+		</menu>
+	</item>
+</menu>

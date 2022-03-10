@@ -3,15 +3,15 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
 		android:id="@+id/searchMenuItem"
-		android:icon="@drawable/icons8_search_64"
+		android:icon="@drawable/ic_baseline_search_24"
 		android:iconTint="?attr/colorOnPrimary"
 		android:onClick="onSearchMenuClicked"
 		android:title="Search"
 		app:showAsAction="always" />
 	<item
 		android:id="@+id/settingsMenuItem"
-		android:icon="@drawable/icons8_gear_64"
+		android:icon="@drawable/ic_baseline_settings_24"
 		android:iconTint="?attr/colorOnPrimary"
 		android:title="Settings"
-		app:showAsAction="always" />
+		app:showAsAction="ifRoom" />
 </menu>

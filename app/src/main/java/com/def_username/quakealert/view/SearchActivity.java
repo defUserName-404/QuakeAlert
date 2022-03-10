@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.def_username.quakealert.R;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
@@ -13,6 +15,7 @@ import java.util.Objects;
 public class SearchActivity extends AppCompatActivity {
 	public static ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton;
 	public static Fragment searchContainerFragment;
+	private static String sortByCategory = "", sortByOrder = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,5 +33,42 @@ public class SearchActivity extends AppCompatActivity {
 				.commit();
 
 		extendedSearchAgainFloatingActionButton = findViewById(R.id.extendedFloatingActionButton_SearchAgain);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.top_actionbar_search, menu);
+		return true;
+	}
+
+	public void onSortByTimeClicked(MenuItem item) {
+		item.setChecked(true);
+		sortByCategory = "time";
+	}
+
+	public void onSortByMagnitudeClicked(MenuItem item) {
+		item.setChecked(true);
+		sortByCategory = "magnitude";
+	}
+
+	public void onAscendingOrderClicked(MenuItem item) {
+		item.setChecked(true);
+		sortByOrder = "asc";
+	}
+
+	public void onDescendingOrderClicked(MenuItem item) {
+		item.setChecked(true);
+	}
+
+	public static String getSortMethod() {
+		String sortMethod = "";
+		if (sortByCategory.equals("magnitude"))
+			sortMethod += "magnitude";
+		if (sortByOrder.equals("asc"))
+			sortMethod += "-asc";
+		if (sortByCategory.equals("time") && sortByOrder.equals("asc"))
+			sortMethod = "time-asc";
+
+		return sortMethod;
 	}
 }
