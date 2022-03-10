@@ -53,7 +53,10 @@ public class ParseData {
 			for (int i = 0; i < earthquakeArray.length(); i++) {
 				JSONObject currentEarthquake = earthquakeArray.getJSONObject(i);
 				JSONObject properties = currentEarthquake.getJSONObject("properties");
-				double magnitude = properties.getDouble("mag");
+				String mag = properties.getString("mag");
+				if (mag.equals("null"))
+					continue;
+				double magnitude = Double.parseDouble(mag);
 				String location = properties.getString("place");
 				long time = properties.getLong("time");
 				JSONArray coordinatesJsonArray = currentEarthquake.getJSONObject("geometry").getJSONArray("coordinates");
