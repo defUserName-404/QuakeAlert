@@ -149,12 +149,13 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		initViews();
 		locationOffsetTextView.setText(getText("LOCATION_OFFSET"));
 		locationNameTextView.setText(getText("LOCATION_NAME"));
-		scaleTextView.setText(getText("SCALE"));
+		String scale = getText("SCALE");
+		scaleTextView.setText(scale);
 		String[] parts = getText("TIME").split("\n");
 		dateTextView.setText(parts[0]);
 		timeTextView.setText(parts[1]);
-		depthTextView.setText(String.format("Source is %s%s", getDepthText(), getString(R.string.depth_text)));
-		feltTextView.setText(getDepthText());
+		depthTextView.setText(String.format("Source is %s%s", getCoordinates()[1], getString(R.string.depth_text)));
+		feltTextView.setText(getFeltTextView(scale));
 		setShapeBGColor();
 		setCardViewBGColor();
 	}
@@ -163,11 +164,33 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		return getIntent().getExtras().getString(key);
 	}
 
-	private String getDepthText() {
+	private String[] getCoordinates() {
+		double latitude = getIntent().getDoubleArrayExtra("COORDINATES")[0];
+		double longitude = getIntent().getDoubleArrayExtra("COORDINATES")[1];
 		double depth = getIntent().getDoubleArrayExtra("COORDINATES")[2];
+
 		if (depth < 0)
-			depth *= -1;
-		return String.valueOf(depth);
+			depth = -depth;
+		
+		return new String[]{String.valueOf(latitude), String.valueOf(longitude), String.valueOf(depth)};
+	}
+
+	private String getFeltTextView(String scaleText) {
+		double magnitude = Double.parseDouble(scaleText);
+		String text;
+		if (magnitude <= 1.0)
+			text = "Can't be felt by humans";
+		else if (magnitude <= 2.5)
+			text = "Felt by only sensitive people";
+		else if (magnitude <= 5.4)
+			text = "Felt by most people, but causes minor damage";
+		else if (magnitude <= 6.0)
+			text = "May cause damage in densely populated areas";
+		else if (magnitude <= 7.9)
+			text = "Major earthquake, causes a lot of damage";
+		else
+			text = "Can totally destroy communities nearby epicenter";
+		return text;
 	}
 
 	private int getSystemColorTheme() {
