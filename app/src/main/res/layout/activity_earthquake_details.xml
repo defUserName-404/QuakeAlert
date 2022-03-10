@@ -63,34 +63,37 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
-				app:layout_constraintGuide_percent="0.3"
+				app:layout_constraintGuide_percent="0.25"
 				app:layout_constraintTop_toBottomOf="@id/textView_LocationName" />
 
 			<TextView
 				android:id="@+id/textView_Depth"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="16dp"
 				android:text="Depth"
 				android:textColor="@color/white"
-				app:layout_constraintStart_toEndOf="@+id/textView_Scale"
-				app:layout_constraintTop_toTopOf="@+id/textView_Scale" />
+				app:layout_constraintBottom_toTopOf="@+id/guideline2"
+				app:layout_constraintStart_toStartOf="@+id/textView_Felt"
+				app:layout_constraintTop_toBottomOf="@+id/textView_Felt" />
 
 			<TextView
 				android:id="@+id/textView_Felt"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_marginStart="16dp"
+				android:layout_marginStart="4dp"
 				android:text="Felt"
 				android:textColor="@color/white"
-				app:layout_constraintBottom_toBottomOf="@+id/textView_Scale"
-				app:layout_constraintStart_toEndOf="@+id/textView_Scale" />
+				app:layout_constraintBottom_toTopOf="@+id/guideline2"
+				app:layout_constraintStart_toEndOf="@+id/textView_Scale"
+				app:layout_constraintTop_toTopOf="@+id/guideline"
+				app:layout_constraintVertical_bias="0.25" />
 
 			<TextView
 				android:id="@+id/textView_Scale"
 				android:layout_width="72dp"
 				android:layout_height="0dp"
-				android:layout_margin="4dp"
+				android:layout_marginTop="4dp"
+				android:layout_marginBottom="4dp"
 				android:background="@drawable/magnitude_bg_circle"
 				android:gravity="center"
 				android:text="Scale"
@@ -107,30 +110,50 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
-				app:layout_constraintGuide_percent="0.6"
+				app:layout_constraintGuide_percent="0.55"
 				app:layout_constraintTop_toBottomOf="@id/textView_Scale" />
+
+			<ImageView
+				android:id="@+id/imageView_Time"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:layout_marginBottom="4dp"
+				android:src="@drawable/ic_baseline_access_time_24"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 			<TextView
 				android:id="@+id/textView_Date"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_margin="4dp"
+				android:layout_marginStart="4dp"
 				android:text="Time"
 				android:textColor="@color/white"
-				app:layout_constraintBottom_toTopOf="@+id/textView_time"
+				app:layout_constraintBottom_toBottomOf="@id/imageView_Date"
+				app:layout_constraintStart_toEndOf="@+id/imageView_Date"
+				app:layout_constraintTop_toTopOf="@id/imageView_Date" />
+
+			<ImageView
+				android:id="@+id/imageView_Date"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="4dp"
+				android:layout_marginBottom="4dp"
+				android:src="@drawable/ic_baseline_calendar_month_24"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textView_Scale" />
+				app:layout_constraintTop_toBottomOf="@+id/imageView_Time" />
 
 			<TextView
 				android:id="@+id/textView_time"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_margin="4dp"
+				android:layout_marginStart="4dp"
 				android:text="Time"
 				android:textColor="@color/white"
-				app:layout_constraintBottom_toTopOf="@+id/materialButton"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textView_Date" />
+				app:layout_constraintBottom_toBottomOf="@+id/imageView_Time"
+				app:layout_constraintStart_toEndOf="@+id/imageView_Time"
+				app:layout_constraintTop_toTopOf="@+id/imageView_Time" />
 
 			<com.google.android.material.button.MaterialButton
 				android:id="@+id/materialButton"
@@ -145,7 +168,7 @@
 				app:layout_constraintEnd_toEndOf="parent"
 				app:layout_constraintHorizontal_bias="0.5"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textView_time" />
+				app:layout_constraintTop_toBottomOf="@+id/textView_Date" />
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
 

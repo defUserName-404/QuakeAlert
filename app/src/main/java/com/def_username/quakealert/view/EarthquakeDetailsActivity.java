@@ -154,7 +154,7 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		String[] parts = getText("TIME").split("\n");
 		dateTextView.setText(parts[0]);
 		timeTextView.setText(parts[1]);
-		depthTextView.setText(String.format("Source is %s%s", getCoordinates()[1], getString(R.string.depth_text)));
+		depthTextView.setText(String.format("Source is %s%s", getCoordinates()[2], getString(R.string.depth_text)));
 		feltTextView.setText(getFeltTextView(scale));
 		setShapeBGColor();
 		setCardViewBGColor();
@@ -170,7 +170,7 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 		double depth = getIntent().getDoubleArrayExtra("COORDINATES")[2];
 
 		if (depth < 0)
-			depth = -depth;
+			depth *= -1;
 		
 		return new String[]{String.valueOf(latitude), String.valueOf(longitude), String.valueOf(depth)};
 	}
