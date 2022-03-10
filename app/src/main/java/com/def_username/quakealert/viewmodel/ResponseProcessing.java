@@ -3,6 +3,7 @@ package com.def_username.quakealert.viewmodel;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -63,6 +64,8 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 			URL.append("&starttime=").append(startDate);
 		if (!endDate.equals(""))
 			URL.append("&endtime=").append(endDate);
+
+		Log.e("URL", URL.toString());
 	}
 
 	private void onResponseReceived(JSONObject response) {

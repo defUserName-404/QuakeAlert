@@ -91,8 +91,8 @@ public class SearchFragment extends Fragment {
 
 	private void extractAndSendSearchRequest() {
 		double[] latitudeAndLongitude = ParseData.getLatitudeLongitudeFromPlaceName(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString());
-		latitude = String.valueOf(latitudeAndLongitude[0]);
-		longitude = String.valueOf(latitudeAndLongitude[1]);
+		latitude = (latitudeAndLongitude[0] == 0) ? "" : String.valueOf(latitudeAndLongitude[0]);
+		longitude = (latitudeAndLongitude[1] == 0) ? "" : String.valueOf(latitudeAndLongitude[1]);
 
 		minMagnitude = mMinMagnitudeTextInput.getText().toString();
 		maxMagnitude = mMaxMagnitudeTextInput.getText().toString();
