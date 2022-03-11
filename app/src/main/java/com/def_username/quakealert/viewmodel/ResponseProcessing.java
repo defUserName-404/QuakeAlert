@@ -16,7 +16,6 @@ import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.SingletonRequestData;
 import com.def_username.quakealert.view.EarthquakeDetailsActivity;
-import com.def_username.quakealert.view.SearchActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONObject;
