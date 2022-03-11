@@ -61,14 +61,6 @@ public class SearchActivity extends AppCompatActivity {
 	}
 
 	public static String getSortMethod() {
-		String sortMethod = "";
-		if (sortByCategory.equals("magnitude"))
-			sortMethod += "magnitude";
-		if (sortByOrder.equals("asc"))
-			sortMethod += "-asc";
-		if (sortByCategory.equals("time") && sortByOrder.equals("asc"))
-			sortMethod = "time-asc";
-
-		return sortMethod;
+		return (sortByOrder.equals("") ? sortByCategory : sortByCategory + "-" + sortByOrder);
 	}
 }
