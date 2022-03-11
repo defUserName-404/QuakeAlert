@@ -15,7 +15,7 @@ import java.util.Objects;
 public class SearchActivity extends AppCompatActivity {
 	public static ExtendedFloatingActionButton extendedSearchAgainFloatingActionButton;
 	public static Fragment searchContainerFragment;
-	private static String sortByCategory = "", sortByOrder = "";
+	private static String sortByCategory = "time", sortByOrder = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
