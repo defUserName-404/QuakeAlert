@@ -20,23 +20,25 @@ import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListListener {
 	private final View root;
-	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson");
-	private ArrayList<String> places, placesOffset, times, scales;
-	private ArrayList<double[]> coordinates;
+	private final StringBuilder URL = new
+			StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson");
+	private List<Earthquake> earthquakeList;
 
 	public ResponseProcessing(View view) {
 		root = view;
 	}
 
-	public void sendRequest(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate, String sortBy) {
+	public void sendRequest(String latitude, String longitude, String minMagnitude,
+							String maxMagnitude, String startDate, String endDate, String sortBy) {
 		processingURL(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy);
-		LinearProgressIndicator mLinearProgressIndicatorRequestLoading = root.findViewById(R.id.networkConnectivity_mProgressIndicator);
+		LinearProgressIndicator mLinearProgressIndicatorRequestLoading =
+				root.findViewById(R.id.networkConnectivity_mProgressIndicator);
 
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, URL.toString(), null,
 				response -> {
@@ -51,7 +53,8 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
 	}
 
-	private void processingURL(String latitude, String longitude, String minMagnitude, String maxMagnitude, String startDate, String endDate, String sortBy) {
+	private void processingURL(String latitude, String longitude, String minMagnitude,
+							   String maxMagnitude, String startDate, String endDate, String sortBy) {
 		if (!latitude.equals(""))
 			URL.append("&latitude=").append(latitude);
 		if (!longitude.equals(""))
@@ -74,35 +77,10 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		RecyclerView recyclerView = root.getRootView().findViewById(R.id.earthquakeList_recyclerview);
 		ParseData.setSampleJsonResponse(response);
 
-		ArrayList<Earthquake> earthquakes = ParseData.extractEarthquakes();
-		places = new ArrayList<>();
-		placesOffset = new ArrayList<>();
-		times = new ArrayList<>();
-		scales = new ArrayList<>();
-		coordinates = new ArrayList<>();
-
-		for (Earthquake earthquake : earthquakes) {
-			Date dateObject = new Date(earthquake.getTimeInMilliseconds());
-			String originalLocation = earthquake.getLocation();
-			String formattedDate = ParseData.formatDate(dateObject).toUpperCase(Locale.getDefault());
-			String formattedTime = ParseData.formatTime(dateObject).toUpperCase(Locale.getDefault());
-			String magnitude = ParseData.formatDecimal(earthquake.getMagnitude());
-			String primaryLocation = ParseData.formatLocation(originalLocation)[0];
-			String locationOffset = ParseData.formatLocation(originalLocation)[1];
-			double[] coordinate = earthquake.getCoordinates();
-
-			if (earthquake.getMagnitude() < 0)
-				continue;
-
-			places.add(primaryLocation);
-			placesOffset.add(locationOffset);
-			times.add(formattedDate + "\n" + formattedTime);
-			scales.add(magnitude);
-			coordinates.add(coordinate);
-		}
+		earthquakeList = ParseData.extractEarthquakes();
 
 		ShowEarthquakeAdapter showEarthquakeAdapter =
-				new ShowEarthquakeAdapter(root.getContext(), places, placesOffset, times, scales, coordinates, this);
+				new ShowEarthquakeAdapter(earthquakeList, this);
 		recyclerView.setAdapter(showEarthquakeAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
 
@@ -134,11 +112,21 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		Context context = root.getContext();
 		Intent intent = new Intent(context, EarthquakeDetailsActivity.class);
 		Bundle bundle = new Bundle();
-		bundle.putString("LOCATION_OFFSET", placesOffset.get(position));
-		bundle.putString("LOCATION_NAME", places.get(position));
-		bundle.putString("SCALE", scales.get(position));
-		bundle.putString("TIME", times.get(position));
-		bundle.putDoubleArray("COORDINATES", coordinates.get(position));
+		Earthquake earthquake = earthquakeList.get(position);
+		Date dateObject = new Date(earthquake.getTimeInMilliseconds());
+		String originalLocation = earthquake.getLocation();
+		String formattedDate = ParseData.formatDate(dateObject).toUpperCase(Locale.getDefault());
+		String formattedTime = ParseData.formatTime(dateObject).toUpperCase(Locale.getDefault());
+		String magnitude = ParseData.formatDecimal(earthquake.getMagnitude());
+		String primaryLocation = ParseData.formatLocation(originalLocation)[0];
+		String locationOffset = ParseData.formatLocation(originalLocation)[1];
+		double[] coordinate = earthquake.getCoordinates();
+
+		bundle.putString("LOCATION_OFFSET", locationOffset);
+		bundle.putString("LOCATION_NAME", primaryLocation);
+		bundle.putString("SCALE", magnitude);
+		bundle.putString("TIME", formattedDate + "\n" + formattedTime);
+		bundle.putDoubleArray("COORDINATES", coordinate);
 		intent.putExtras(bundle);
 		context.startActivity(intent);
 	}
