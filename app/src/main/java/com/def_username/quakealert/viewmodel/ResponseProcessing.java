@@ -14,8 +14,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
-import com.def_username.quakealert.model.SingletonRequestData;
-import com.def_username.quakealert.view.EarthquakeDetailsActivity;
+import com.def_username.quakealert.ui.EarthquakeDetailsActivity;
+import com.def_username.quakealert.util.InputValidator;
+import com.def_username.quakealert.util.ParseData;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import org.json.JSONObject;
@@ -24,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListListener {
+public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListClickListener {
 	private final View root;
 	private final StringBuilder URL = new
 			StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson");
@@ -50,7 +51,7 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 					onResponseError(error);
 				});
 
-		SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
+		InputValidator.SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
 	}
 
 	private void processingURL(String latitude, String longitude, String minMagnitude,

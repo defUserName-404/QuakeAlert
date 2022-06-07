@@ -20,14 +20,14 @@
 			android:value="@string/MAPS_API_KEY" />
 
 		<activity
-			android:name=".view.EarthquakeDetailsActivity"
+			android:name=".ui.EarthquakeDetailsActivity"
 			android:exported="false" />
 		<activity
-			android:name=".view.SearchActivity"
+			android:name=".ui.SearchActivity"
 			android:exported="false"
-			android:parentActivityName=".view.MainActivity" />
+			android:parentActivityName=".ui.MainActivity" />
 		<activity
-			android:name=".view.MainActivity"
+			android:name=".ui.MainActivity"
 			android:exported="true"
 			android:theme="@style/splashScreenTheme">
 			<intent-filter>

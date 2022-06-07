@@ -1,5 +1,7 @@
 package com.def_username.quakealert.viewmodel;
 
+import com.def_username.quakealert.util.ParseData;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Assert;

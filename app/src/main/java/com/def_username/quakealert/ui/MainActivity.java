@@ -1,4 +1,4 @@
-package com.def_username.quakealert.view;
+package com.def_username.quakealert.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 

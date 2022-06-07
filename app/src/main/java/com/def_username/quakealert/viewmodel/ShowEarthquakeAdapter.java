@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
+import com.def_username.quakealert.util.ParseData;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.Date;
@@ -20,12 +21,12 @@ import java.util.Locale;
 
 public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAdapter.EarthquakeListViewHolder> {
 	private final List<Earthquake> earthquakeList;
-	private final OnEarthquakeListListener onEarthquakeListListener;
+	private final OnEarthquakeListClickListener onEarthquakeListClickListener;
 
 	public ShowEarthquakeAdapter(List<Earthquake> earthquakeList,
-								 OnEarthquakeListListener onEarthquakeListListener) {
+								 OnEarthquakeListClickListener onEarthquakeListClickListener) {
 		this.earthquakeList = earthquakeList;
-		this.onEarthquakeListListener = onEarthquakeListListener;
+		this.onEarthquakeListClickListener = onEarthquakeListClickListener;
 	}
 
 	@NonNull
@@ -34,7 +35,7 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 		LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
 		View view = layoutInflater.inflate(R.layout.earthquake_detail, parent, false);
 
-		return new EarthquakeListViewHolder(view, onEarthquakeListListener);
+		return new EarthquakeListViewHolder(view, onEarthquakeListClickListener);
 	}
 
 	@SuppressLint("SetTextI18n")
@@ -68,9 +69,9 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 	public static class EarthquakeListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 		private final TextView textViewPlace, textViewTime, textViewScale, textViewPlacesOffset;
 		private final MaterialCardView materialCardView;
-		private final OnEarthquakeListListener onEarthquakeListListener;
+		private final OnEarthquakeListClickListener onEarthquakeListClickListener;
 
-		public EarthquakeListViewHolder(@NonNull View itemView, OnEarthquakeListListener onEarthquakeListListener) {
+		public EarthquakeListViewHolder(@NonNull View itemView, OnEarthquakeListClickListener onEarthquakeListClickListener) {
 			super(itemView);
 			textViewPlace = itemView.findViewById(R.id.place_textview);
 			textViewPlacesOffset = itemView.findViewById(R.id.placeoffset_textview);
@@ -78,17 +79,17 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 			textViewScale = itemView.findViewById(R.id.scale_textview);
 			materialCardView = itemView.findViewById(R.id.materialCardView);
 
-			this.onEarthquakeListListener = onEarthquakeListListener;
+			this.onEarthquakeListClickListener = onEarthquakeListClickListener;
 			itemView.setOnClickListener(this);
 		}
 
 		@Override
 		public void onClick(View view) {
-			onEarthquakeListListener.showEarthquakeDetails(getAdapterPosition());
+			onEarthquakeListClickListener.showEarthquakeDetails(getAdapterPosition());
 		}
 	}
 
-	public interface OnEarthquakeListListener {
+	public interface OnEarthquakeListClickListener {
 		void showEarthquakeDetails(int position);
 	}
 }

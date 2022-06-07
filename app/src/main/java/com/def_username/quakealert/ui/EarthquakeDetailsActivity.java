@@ -1,4 +1,4 @@
-package com.def_username.quakealert.view;
+package com.def_username.quakealert.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.def_username.quakealert.R;
-import com.def_username.quakealert.viewmodel.ParseData;
+import com.def_username.quakealert.util.ParseData;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;

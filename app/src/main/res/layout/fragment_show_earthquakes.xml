@@ -5,7 +5,7 @@
 	android:id="@+id/showEarthquakesFragment"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	tools:context=".view.ShowEarthquakesFragment">
+	tools:context=".ui.ShowEarthquakesFragment">
 
 	<com.google.android.material.progressindicator.LinearProgressIndicator
 		android:id="@+id/networkConnectivity_mProgressIndicator"

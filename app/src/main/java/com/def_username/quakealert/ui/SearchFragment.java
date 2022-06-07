@@ -1,4 +1,4 @@
-package com.def_username.quakealert.view;
+package com.def_username.quakealert.ui;
 
 import android.os.Bundle;
 
@@ -10,8 +10,8 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.def_username.quakealert.R;
-import com.def_username.quakealert.viewmodel.InputValidator;
-import com.def_username.quakealert.viewmodel.ParseData;
+import com.def_username.quakealert.util.InputValidator;
+import com.def_username.quakealert.util.ParseData;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;

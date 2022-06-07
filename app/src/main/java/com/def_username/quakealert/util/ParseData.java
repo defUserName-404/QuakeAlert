@@ -1,4 +1,4 @@
-package com.def_username.quakealert.viewmodel;
+package com.def_username.quakealert.util;
 
 import android.content.Context;
 import android.graphics.Color;

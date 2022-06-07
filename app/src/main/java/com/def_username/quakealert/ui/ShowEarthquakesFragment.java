@@ -1,4 +1,4 @@
-package com.def_username.quakealert.view;
+package com.def_username.quakealert.ui;
 
 import android.os.Bundle;
 
@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.def_username.quakealert.R;
-import com.def_username.quakealert.viewmodel.ParseData;
+import com.def_username.quakealert.util.ParseData;
 import com.def_username.quakealert.viewmodel.ResponseProcessing;
 
 import java.util.Calendar;
