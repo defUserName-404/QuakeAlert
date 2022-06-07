@@ -13,7 +13,10 @@ import com.android.volley.Request;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.def_username.quakealert.R;
+import com.def_username.quakealert.model.Coordinate;
+import com.def_username.quakealert.model.DateRange;
 import com.def_username.quakealert.model.Earthquake;
+import com.def_username.quakealert.model.MagnitudeRange;
 import com.def_username.quakealert.ui.EarthquakeDetailsActivity;
 import com.def_username.quakealert.util.InputValidator;
 import com.def_username.quakealert.util.ParseData;
@@ -35,9 +38,8 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		root = view;
 	}
 
-	public void sendRequest(String latitude, String longitude, String minMagnitude,
-							String maxMagnitude, String startDate, String endDate, String sortBy) {
-		processingURL(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy);
+	public void sendRequest(com.def_username.quakealert.model.Request request) {
+		processingURL(request);
 		LinearProgressIndicator mLinearProgressIndicatorRequestLoading =
 				root.findViewById(R.id.networkConnectivity_mProgressIndicator);
 
@@ -54,8 +56,18 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 		InputValidator.SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
 	}
 
-	private void processingURL(String latitude, String longitude, String minMagnitude,
-							   String maxMagnitude, String startDate, String endDate, String sortBy) {
+	private void processingURL(com.def_username.quakealert.model.Request request) {
+		Coordinate coordinate = request.getCoordinate();
+		DateRange dateRange = request.getDateRange();
+		MagnitudeRange magnitudeRange = request.getMagnitudeRange();
+		String sortBy = request.getSortBy();
+		String latitude = coordinate.getLatitude();
+		String longitude = coordinate.getLongitude();
+		String minMagnitude = magnitudeRange.getMinMagnitude();
+		String maxMagnitude  = magnitudeRange.getMaxMagnitude();
+		String startDate = dateRange.getStartDate();
+		String endDate = dateRange.getEndDate();
+
 		if (!latitude.equals(""))
 			URL.append("&latitude=").append(latitude);
 		if (!longitude.equals(""))

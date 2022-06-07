@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.def_username.quakealert.R;
+import com.def_username.quakealert.model.Coordinate;
+import com.def_username.quakealert.model.DateRange;
+import com.def_username.quakealert.model.MagnitudeRange;
+import com.def_username.quakealert.model.Request;
 import com.def_username.quakealert.util.ParseData;
 import com.def_username.quakealert.viewmodel.ResponseProcessing;
 
@@ -56,7 +60,13 @@ public class ShowEarthquakesFragment extends Fragment {
 		}
 
 		ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
-		responseProcessing.sendRequest(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy);
+		Request request = new Request(
+				new Coordinate(latitude, longitude),
+				new MagnitudeRange(minMagnitude, maxMagnitude),
+				new DateRange(startDate, endDate),
+				sortBy
+		);
+		responseProcessing.sendRequest(request);
 
 		return rootView;
 	}
