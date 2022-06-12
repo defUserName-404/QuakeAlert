@@ -17,6 +17,7 @@ import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class SearchFragment extends Fragment {
 	private static final short ANIMATION_DURATION = 200;
@@ -94,8 +95,8 @@ public class SearchFragment extends Fragment {
 		double[] latitudeAndLongitude = ParseData.getLatitudeLongitudeFromPlaceName(requireActivity().getApplicationContext(), mLocationTextInput.getText().toString());
 		latitude = (latitudeAndLongitude[0] == 0) ? "" : String.valueOf(latitudeAndLongitude[0]);
 		longitude = (latitudeAndLongitude[1] == 0) ? "" : String.valueOf(latitudeAndLongitude[1]);
-		minMagnitude = mMinMagnitudeTextInput.getText().toString();
-		maxMagnitude = mMaxMagnitudeTextInput.getText().toString();
+		minMagnitude = Objects.requireNonNull(mMinMagnitudeTextInput.getText()).toString();
+		maxMagnitude = Objects.requireNonNull(mMaxMagnitudeTextInput.getText()).toString();
 		startDate = (startTime == 0) ? "" : ParseData.formatDateForResponse(new Date(startTime));
 		endDate = (endTime == 0) ? "" : ParseData.formatDateForResponse(new Date(endTime));
 	}

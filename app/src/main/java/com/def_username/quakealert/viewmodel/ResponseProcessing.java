@@ -18,7 +18,7 @@ import com.def_username.quakealert.model.DateRange;
 import com.def_username.quakealert.model.Earthquake;
 import com.def_username.quakealert.model.MagnitudeRange;
 import com.def_username.quakealert.ui.EarthquakeDetailsActivity;
-import com.def_username.quakealert.util.InputValidator;
+import com.def_username.quakealert.util.DataRequest;
 import com.def_username.quakealert.util.ParseData;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
@@ -30,8 +30,7 @@ import java.util.Locale;
 
 public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeListClickListener {
 	private final View root;
-	private final StringBuilder URL = new
-			StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson");
+	private final StringBuilder URL = new StringBuilder("https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson");
 	private List<Earthquake> earthquakeList;
 
 	public ResponseProcessing(View view) {
@@ -53,7 +52,7 @@ public class ResponseProcessing implements ShowEarthquakeAdapter.OnEarthquakeLis
 					onResponseError(error);
 				});
 
-		InputValidator.SingletonRequestData.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
+		DataRequest.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
 	}
 
 	private void processingURL(com.def_username.quakealert.model.Request request) {
