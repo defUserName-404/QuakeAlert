@@ -9,6 +9,9 @@ import androidx.core.util.Pair;
 import androidx.fragment.app.Fragment;
 
 import com.def_username.quakealert.R;
+import com.def_username.quakealert.model.Coordinate;
+import com.def_username.quakealert.model.DateRange;
+import com.def_username.quakealert.model.MagnitudeRange;
 import com.def_username.quakealert.util.InputValidator;
 import com.def_username.quakealert.util.ParseData;
 import com.google.android.material.button.MaterialButton;
@@ -43,7 +46,12 @@ public class SearchFragment extends Fragment {
 
 			if (InputValidator.validateInput()) {
 				sortBy = SearchActivity.getSortMethod();
-				searchResultsFragment = new ShowEarthquakesFragment(latitude, longitude, minMagnitude, maxMagnitude, startDate, endDate, sortBy);
+				searchResultsFragment = new ShowEarthquakesFragment(
+						new Coordinate(latitude, longitude),
+						new MagnitudeRange(minMagnitude, maxMagnitude),
+						new DateRange(startDate, endDate),
+						sortBy
+				);
 
 				requireActivity().getSupportFragmentManager()
 						.beginTransaction()

@@ -1,14 +1,13 @@
 package com.def_username.quakealert.ui;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Coordinate;
@@ -22,29 +21,29 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ShowEarthquakesFragment extends Fragment {
-	private final String latitude, longitude, minMagnitude, maxMagnitude, endDate, startDate, sortBy;
-	private RecyclerView mRecyclerView;
+
 	private static boolean IMPLEMENT_SCROLL_LISTENER_FLAG = false;
+	private final Coordinate coordinate;
+	private final MagnitudeRange magnitudeRange;
+	private final DateRange dateRange;
+	private final String sortBy;
+	private RecyclerView mRecyclerView;
 
 	public ShowEarthquakesFragment() {
-		latitude = longitude = "";
-		minMagnitude = maxMagnitude = "";
-
+		coordinate = new Coordinate("", "");
+		magnitudeRange = new MagnitudeRange("", "");
 		long time = Calendar.getInstance().getTimeInMillis();
-
-		endDate = ParseData.formatDateForResponse(new Date(time));
-		startDate = ParseData.formatDateForResponse(new Date(time - 86400000 * 2));
+		String endDate = ParseData.formatDateForResponse(new Date(time));
+		String startDate = ParseData.formatDateForResponse(new Date(time - 86400000 * 2));
+		dateRange = new DateRange(startDate, endDate);
 		sortBy = "";
 	}
 
-	public ShowEarthquakesFragment(String latitude, String longitude, String minMagnitude, String maxMagnitude,
-								   String startDate, String endDate, String sortBy) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-		this.maxMagnitude = maxMagnitude;
-		this.minMagnitude = minMagnitude;
-		this.startDate = startDate;
-		this.endDate = endDate;
+	public ShowEarthquakesFragment(Coordinate coordinate, MagnitudeRange magnitudeRange,
+								   DateRange dateRange, String sortBy) {
+		this.coordinate = coordinate;
+		this.magnitudeRange = magnitudeRange;
+		this.dateRange = dateRange;
 		this.sortBy = sortBy;
 
 		IMPLEMENT_SCROLL_LISTENER_FLAG = true;
@@ -61,9 +60,9 @@ public class ShowEarthquakesFragment extends Fragment {
 
 		ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
 		Request request = new Request(
-				new Coordinate(latitude, longitude),
-				new MagnitudeRange(minMagnitude, maxMagnitude),
-				new DateRange(startDate, endDate),
+				coordinate,
+				magnitudeRange,
+				dateRange,
 				sortBy
 		);
 		responseProcessing.sendRequest(request);
