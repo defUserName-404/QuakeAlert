@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.def_username.quakealert.R;
-import com.def_username.quakealert.util.ParseData;
+import com.def_username.quakealert.util.EarthquakeDataParser;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -105,7 +105,7 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 	@Override
 	public void onMapReady(@NonNull GoogleMap googleMap) {
 		String locationName = getText("LOCATION_NAME");
-		double[] latitudeAndLongitude = ParseData.getLatitudeLongitudeFromPlaceName(this, locationName);
+		double[] latitudeAndLongitude = EarthquakeDataParser.getLatitudeLongitudeFromPlaceName(this, locationName);
 		LatLng location = new LatLng(latitudeAndLongitude[0], latitudeAndLongitude[1]);
 
 		googleMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.maps_custom_style));
@@ -198,7 +198,7 @@ public class EarthquakeDetailsActivity extends AppCompatActivity implements OnMa
 	}
 
 	private void setShapeBGColor() {
-		int color = ParseData.getBGColor((Double.parseDouble(scaleTextView.getText().toString())));
+		int color = EarthquakeDataParser.getBGColor((Double.parseDouble(scaleTextView.getText().toString())));
 		GradientDrawable bgShape = (GradientDrawable) scaleTextView.getBackground();
 		bgShape.setColor(color);
 	}

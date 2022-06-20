@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Earthquake;
-import com.def_username.quakealert.util.ParseData;
+import com.def_username.quakealert.util.EarthquakeDataParser;
 import com.google.android.material.card.MaterialCardView;
 
 import java.util.Date;
@@ -45,17 +45,17 @@ public class ShowEarthquakeAdapter extends RecyclerView.Adapter<ShowEarthquakeAd
 
 		Date dateObject = new Date(earthquake.getTimeInMilliseconds());
 		String originalLocation = earthquake.getLocation();
-		String formattedDate = ParseData.formatDate(dateObject).toUpperCase(Locale.getDefault());
-		String formattedTime = ParseData.formatTime(dateObject).toUpperCase(Locale.getDefault());
-		String magnitude = ParseData.formatDecimal(earthquake.getMagnitude());
-		String primaryLocation = ParseData.formatLocation(originalLocation)[0];
-		String locationOffset = ParseData.formatLocation(originalLocation)[1];
+		String formattedDate = EarthquakeDataParser.formatDate(dateObject).toUpperCase(Locale.getDefault());
+		String formattedTime = EarthquakeDataParser.formatTime(dateObject).toUpperCase(Locale.getDefault());
+		String magnitude = EarthquakeDataParser.formatDecimal(earthquake.getMagnitude());
+		String primaryLocation = EarthquakeDataParser.formatLocation(originalLocation)[0];
+		String locationOffset = EarthquakeDataParser.formatLocation(originalLocation)[1];
 
 		holder.textViewPlace.setText(primaryLocation);
 		holder.textViewPlacesOffset.setText(locationOffset);
 		holder.textViewTime.setText(formattedDate + "\n" + formattedTime);
 		holder.textViewScale.setText(magnitude);
-		int color = ParseData.getBGColor(Double.parseDouble(magnitude));
+		int color = EarthquakeDataParser.getBGColor(Double.parseDouble(magnitude));
 		holder.materialCardView.setStrokeColor(color);
 		GradientDrawable bgShape = (GradientDrawable) holder.textViewScale.getBackground();
 		bgShape.setColor(color);
