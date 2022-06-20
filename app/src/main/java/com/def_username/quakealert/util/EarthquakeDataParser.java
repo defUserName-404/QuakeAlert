@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class ParseData {
+public class EarthquakeDataParser {
 	private static JSONObject FINAL_RESPONSE;
 
 	public static void setSampleJsonResponse(JSONObject response) {
@@ -28,20 +28,7 @@ public class ParseData {
 	}
 
 	// To prevent from creating an object of this class
-	private ParseData() {
-	}
-
-	public static int getCount() {
-		int count;
-
-		try {
-			JSONObject jsonMetadata = FINAL_RESPONSE.getJSONObject("metadata");
-			count = jsonMetadata.getInt("count");
-		} catch (JSONException e) {
-			count = 0;
-		}
-
-		return count;
+	private EarthquakeDataParser() {
 	}
 
 	public static ArrayList<Earthquake> extractEarthquakes() {
@@ -59,7 +46,8 @@ public class ParseData {
 				double magnitude = Double.parseDouble(mag);
 				String location = properties.getString("place");
 				long time = properties.getLong("time");
-				JSONArray coordinatesJsonArray = currentEarthquake.getJSONObject("geometry").getJSONArray("coordinates");
+				JSONArray coordinatesJsonArray = currentEarthquake.getJSONObject("geometry")
+						.getJSONArray("coordinates");
 				double[] coordinates = new double[3];
 
 				for (int j = 0; j < 3; j++)

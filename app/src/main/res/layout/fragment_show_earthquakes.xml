@@ -8,7 +8,7 @@
 	tools:context=".ui.ShowEarthquakesFragment">
 
 	<com.google.android.material.progressindicator.LinearProgressIndicator
-		android:id="@+id/networkConnectivity_mProgressIndicator"
+		android:id="@+id/ProgressIndicator_NetworkConnectivity"
 		android:layout_width="match_parent"
 		android:layout_height="5dp"
 		android:layout_marginTop="10dp"
@@ -24,7 +24,7 @@
 		android:layout_height="wrap_content"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/networkConnectivity_mProgressIndicator" />
+		app:layout_constraintTop_toBottomOf="@+id/ProgressIndicator_NetworkConnectivity" />
 
 	<ImageView
 		android:id="@+id/imageView_NothingFound"

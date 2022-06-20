@@ -14,8 +14,8 @@ import com.def_username.quakealert.model.Coordinate;
 import com.def_username.quakealert.model.DateRange;
 import com.def_username.quakealert.model.MagnitudeRange;
 import com.def_username.quakealert.model.Request;
-import com.def_username.quakealert.util.ParseData;
-import com.def_username.quakealert.viewmodel.ResponseProcessing;
+import com.def_username.quakealert.util.EarthquakeDataParser;
+import com.def_username.quakealert.viewmodel.RequestProcessor;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -33,8 +33,8 @@ public class ShowEarthquakesFragment extends Fragment {
 		coordinate = new Coordinate("", "");
 		magnitudeRange = new MagnitudeRange("", "");
 		long time = Calendar.getInstance().getTimeInMillis();
-		String endDate = ParseData.formatDateForResponse(new Date(time));
-		String startDate = ParseData.formatDateForResponse(new Date(time - 86400000 * 2));
+		String endDate = EarthquakeDataParser.formatDateForResponse(new Date(time));
+		String startDate = EarthquakeDataParser.formatDateForResponse(new Date(time - 86400000 * 2));
 		dateRange = new DateRange(startDate, endDate);
 		sortBy = "";
 	}
@@ -58,14 +58,14 @@ public class ShowEarthquakesFragment extends Fragment {
 			disableSearchAgainButtonWhileScrolling();
 		}
 
-		ResponseProcessing responseProcessing = new ResponseProcessing(rootView);
+		RequestProcessor requestProcessor = new RequestProcessor(rootView);
 		Request request = new Request(
 				coordinate,
 				magnitudeRange,
 				dateRange,
 				sortBy
 		);
-		responseProcessing.sendRequest(request);
+		requestProcessor.sendRequest(request);
 
 		return rootView;
 	}

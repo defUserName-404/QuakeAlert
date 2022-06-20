@@ -13,7 +13,7 @@ import com.def_username.quakealert.model.Coordinate;
 import com.def_username.quakealert.model.DateRange;
 import com.def_username.quakealert.model.MagnitudeRange;
 import com.def_username.quakealert.util.InputValidator;
-import com.def_username.quakealert.util.ParseData;
+import com.def_username.quakealert.util.EarthquakeDataParser;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
@@ -97,13 +97,13 @@ public class SearchFragment extends Fragment {
 	}
 
 	private void extractAndSendSearchRequest() {
-		double[] latitudeAndLongitude = ParseData.getLatitudeLongitudeFromPlaceName(requireActivity().getApplicationContext(), textInputEditTextLocation.getText().toString());
+		double[] latitudeAndLongitude = EarthquakeDataParser.getLatitudeLongitudeFromPlaceName(requireActivity().getApplicationContext(), textInputEditTextLocation.getText().toString());
 		latitude = (latitudeAndLongitude[0] == 0) ? "" : String.valueOf(latitudeAndLongitude[0]);
 		longitude = (latitudeAndLongitude[1] == 0) ? "" : String.valueOf(latitudeAndLongitude[1]);
 		minMagnitude = Objects.requireNonNull(textInputEditTextMinMagnitude.getText()).toString();
 		maxMagnitude = Objects.requireNonNull(textInputEditTextMaxMagnitude.getText()).toString();
-		startDate = (startTime == 0) ? "" : ParseData.formatDateForResponse(new Date(startTime));
-		endDate = (endTime == 0) ? "" : ParseData.formatDateForResponse(new Date(endTime));
+		startDate = (startTime == 0) ? "" : EarthquakeDataParser.formatDateForResponse(new Date(startTime));
+		endDate = (endTime == 0) ? "" : EarthquakeDataParser.formatDateForResponse(new Date(endTime));
 	}
 
 	private void setSearchAgainButtonVisibility(int visibility) {
