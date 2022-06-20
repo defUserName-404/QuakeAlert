@@ -4,7 +4,6 @@ import com.def_username.quakealert.util.EarthquakeDataParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.junit.Assert;
 import org.junit.Test;
 
 public class EarthquakeDataParserTest {
@@ -17,11 +16,6 @@ public class EarthquakeDataParserTest {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Test
-	public void getCount() {
-		Assert.assertEquals(EarthquakeDataParser.getCount(), 2);
 	}
 
 	@Test
