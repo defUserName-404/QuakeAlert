@@ -26,7 +26,7 @@ public class DataRequest {
 		return instance;
 	}
 
-	public RequestQueue getRequestQueue() {
+	private RequestQueue getRequestQueue() {
 		if (requestQueue == null)
 			requestQueue = Volley.newRequestQueue(context.getApplicationContext());
 
