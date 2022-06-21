@@ -3,7 +3,12 @@ package com.def_username.quakealert.viewmodel;
 import android.util.Log;
 import android.view.View;
 
+import com.android.volley.Cache;
+import com.android.volley.NetworkResponse;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Coordinate;
@@ -11,6 +16,11 @@ import com.def_username.quakealert.model.DateRange;
 import com.def_username.quakealert.model.MagnitudeRange;
 import com.def_username.quakealert.util.DataRequest;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
 
 public class RequestProcessor {
 
@@ -37,9 +47,46 @@ public class RequestProcessor {
 				error -> {
 					mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
 					responseProcessor.onResponseError(error);
-				});
+				}) {
+			@Override
+			protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
+				try {
+					Cache.Entry cacheEntry = HttpHeaderParser.parseCacheHeaders(response);
+					if (cacheEntry == null)
+						cacheEntry = new Cache.Entry();
+					final long cacheHitButRefreshed = 5 * 60 * 1000; // in 5 minutes cache will be hit, but also refreshed on background
+					final long cacheExpired = 6 * 60 * 60 * 1000; // in 6 hours this cache entry expires completely
+					long now = System.currentTimeMillis();
+					final long softExpire = now + cacheHitButRefreshed;
+					final long ttl = now + cacheExpired;
 
-		DataRequest.getInstance(root.getContext()).addToRequestQueue(jsonRequest);
+					cacheEntry.data = response.data;
+					cacheEntry.softTtl = softExpire;
+					cacheEntry.ttl = ttl;
+
+					String headerValue;
+					assert response.headers != null;
+					headerValue = response.headers.get("Date");
+
+					if (headerValue != null)
+						cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
+					headerValue = response.headers.get("Last-Modified");
+					if (headerValue != null)
+						cacheEntry.lastModified = HttpHeaderParser.parseDateAsEpoch(headerValue);
+
+					cacheEntry.responseHeaders = response.headers;
+					final String jsonString = new String(response.data,
+							HttpHeaderParser.parseCharset(response.headers));
+
+					return Response.success(new JSONObject(jsonString), cacheEntry);
+				} catch (UnsupportedEncodingException | JSONException e) {
+					return Response.error(new ParseError(e));
+				}
+			}
+		};
+
+		DataRequest.getInstance(root.getContext())
+				.addToRequestQueue(jsonRequest);
 	}
 
 	private void processingURL(com.def_username.quakealert.model.Request request) {
