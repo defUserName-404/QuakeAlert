@@ -31,7 +31,7 @@ public class ShowEarthquakesFragment extends Fragment {
 
 	public ShowEarthquakesFragment() {
 		coordinate = new Coordinate("", "");
-		magnitudeRange = new MagnitudeRange("", "");
+		magnitudeRange = new MagnitudeRange("3.0", "");
 		long time = Calendar.getInstance().getTimeInMillis();
 		String endDate = EarthquakeDataParser.formatDateForResponse(new Date(time));
 		String startDate = EarthquakeDataParser.formatDateForResponse(new Date(time - 86400000 * 2));
