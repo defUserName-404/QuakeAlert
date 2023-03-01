@@ -36,9 +36,7 @@ public class RequestProcessor {
 		processingURL(request);
 		LinearProgressIndicator mLinearProgressIndicatorRequestLoading =
 				root.findViewById(R.id.ProgressIndicator_NetworkConnectivity);
-
 		ResponseProcessor responseProcessor = new ResponseProcessor(root);
-
 		JsonObjectRequest jsonRequest = new JsonObjectRequest(Request.Method.GET, url.toString(), null,
 				response -> {
 					mLinearProgressIndicatorRequestLoading.setVisibility(View.GONE);
@@ -59,32 +57,26 @@ public class RequestProcessor {
 					long now = System.currentTimeMillis();
 					final long softExpire = now + cacheHitButRefreshed;
 					final long ttl = now + cacheExpired;
-
 					cacheEntry.data = response.data;
 					cacheEntry.softTtl = softExpire;
 					cacheEntry.ttl = ttl;
-
 					String headerValue;
 					assert response.headers != null;
 					headerValue = response.headers.get("Date");
-
 					if (headerValue != null)
 						cacheEntry.serverDate = HttpHeaderParser.parseDateAsEpoch(headerValue);
 					headerValue = response.headers.get("Last-Modified");
 					if (headerValue != null)
 						cacheEntry.lastModified = HttpHeaderParser.parseDateAsEpoch(headerValue);
-
 					cacheEntry.responseHeaders = response.headers;
 					final String jsonString = new String(response.data,
 							HttpHeaderParser.parseCharset(response.headers));
-
 					return Response.success(new JSONObject(jsonString), cacheEntry);
 				} catch (UnsupportedEncodingException | JSONException e) {
 					return Response.error(new ParseError(e));
 				}
 			}
 		};
-
 		DataRequest.getInstance(root.getContext())
 				.addToRequestQueue(jsonRequest);
 	}
@@ -100,7 +92,6 @@ public class RequestProcessor {
 		String maxMagnitude = magnitudeRange.getMaxMagnitude();
 		String startDate = dateRange.getStartDate();
 		String endDate = dateRange.getEndDate();
-
 		if (!latitude.equals(""))
 			url.append("&latitude=").append(latitude);
 		if (!longitude.equals(""))
@@ -115,7 +106,7 @@ public class RequestProcessor {
 			url.append("&endtime=").append(endDate);
 		if (!sortBy.equals(""))
 			url.append("&orderby=").append(sortBy);
-
 		Log.i("URL", url.toString());
 	}
+
 }

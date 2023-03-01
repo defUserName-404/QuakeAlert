@@ -16,4 +16,5 @@ public class MagnitudeRange {
 	public String getMaxMagnitude() {
 		return maxMagnitude;
 	}
+
 }

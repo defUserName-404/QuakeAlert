@@ -1,174 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ui.EarthquakeDetailsActivity">
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".ui.EarthquakeDetailsActivity">
 
 	<com.google.android.gms.maps.MapView
-		android:id="@+id/mapView"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintHeight_percent="0.6"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+			android:id="@+id/mapView"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHeight_percent="0.6"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
 
 	<com.google.android.material.card.MaterialCardView
-		android:id="@+id/materialCardView"
-		style="@style/customCardView"
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_marginTop="-8dp"
-		app:cardElevation="100dp"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@id/mapView">
+			android:id="@+id/materialCardView"
+			style="@style/customCardView"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_marginTop="-8dp"
+			app:cardElevation="100dp"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@id/mapView">
 
 		<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:padding="4dp">
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:padding="4dp">
 
 			<TextView
-				android:id="@+id/textView_LocationLabel"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="Location Label"
-				android:textColor="?attr/colorSecondaryVariant"
-				app:layout_constraintBottom_toTopOf="@+id/textView_LocationName"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHorizontal_bias="0.5"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+					android:id="@+id/textView_LocationLabel"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Location Label"
+					android:textColor="?attr/colorSecondaryVariant"
+					app:layout_constraintBottom_toTopOf="@+id/textView_LocationName"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.5"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent" />
 
 			<TextView
-				android:id="@+id/textView_LocationName"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="Location"
-				android:textColor="?attr/colorSecondaryVariant"
-				android:textSize="16sp"
-				android:textStyle="bold"
-				app:layout_constraintBottom_toTopOf="@id/guideline"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHorizontal_bias="0.5"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textView_LocationLabel" />
+					android:id="@+id/textView_LocationName"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Location"
+					android:textColor="?attr/colorSecondaryVariant"
+					android:textSize="16sp"
+					android:textStyle="bold"
+					app:layout_constraintBottom_toTopOf="@id/guideline"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.5"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView_LocationLabel" />
 
 			<androidx.constraintlayout.widget.Guideline
-				android:id="@+id/guideline"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				app:layout_constraintGuide_percent="0.25"
-				app:layout_constraintTop_toBottomOf="@id/textView_LocationName" />
+					android:id="@+id/guideline"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					app:layout_constraintGuide_percent="0.25"
+					app:layout_constraintTop_toBottomOf="@id/textView_LocationName" />
 
 			<TextView
-				android:id="@+id/textView_Depth"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:text="Depth"
-				android:textColor="@color/white"
-				app:layout_constraintBottom_toTopOf="@+id/guideline2"
-				app:layout_constraintStart_toStartOf="@+id/textView_Felt"
-				app:layout_constraintTop_toBottomOf="@+id/textView_Felt" />
+					android:id="@+id/textView_Depth"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="Depth"
+					android:textColor="@color/white"
+					app:layout_constraintBottom_toTopOf="@+id/guideline2"
+					app:layout_constraintStart_toStartOf="@+id/textView_Felt"
+					app:layout_constraintTop_toBottomOf="@+id/textView_Felt" />
 
 			<TextView
-				android:id="@+id/textView_Felt"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="4dp"
-				android:text="Felt"
-				android:textColor="@color/white"
-				app:layout_constraintBottom_toTopOf="@+id/guideline2"
-				app:layout_constraintStart_toEndOf="@+id/textView_Scale"
-				app:layout_constraintTop_toTopOf="@+id/guideline"
-				app:layout_constraintVertical_bias="0.25" />
+					android:id="@+id/textView_Felt"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="4dp"
+					android:text="Felt"
+					android:textColor="@color/white"
+					app:layout_constraintBottom_toTopOf="@+id/guideline2"
+					app:layout_constraintStart_toEndOf="@+id/textView_Scale"
+					app:layout_constraintTop_toTopOf="@+id/guideline"
+					app:layout_constraintVertical_bias="0.25" />
 
 			<TextView
-				android:id="@+id/textView_Scale"
-				android:layout_width="72dp"
-				android:layout_height="0dp"
-				android:layout_marginTop="4dp"
-				android:layout_marginBottom="4dp"
-				android:background="@drawable/magnitude_bg_circle"
-				android:gravity="center"
-				android:text="Scale"
-				android:textAlignment="center"
-				android:textColor="@color/black"
-				android:textSize="16sp"
-				android:textStyle="bold"
-				app:layout_constraintBottom_toTopOf="@id/guideline2"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="@+id/guideline" />
+					android:id="@+id/textView_Scale"
+					android:layout_width="72dp"
+					android:layout_height="0dp"
+					android:layout_marginTop="4dp"
+					android:layout_marginBottom="4dp"
+					android:background="@drawable/magnitude_bg_circle"
+					android:gravity="center"
+					android:text="Scale"
+					android:textAlignment="center"
+					android:textColor="@color/black"
+					android:textSize="16sp"
+					android:textStyle="bold"
+					app:layout_constraintBottom_toTopOf="@id/guideline2"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/guideline" />
 
 			<androidx.constraintlayout.widget.Guideline
-				android:id="@+id/guideline2"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				app:layout_constraintGuide_percent="0.55"
-				app:layout_constraintTop_toBottomOf="@id/textView_Scale" />
+					android:id="@+id/guideline2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:orientation="horizontal"
+					app:layout_constraintGuide_percent="0.55"
+					app:layout_constraintTop_toBottomOf="@id/textView_Scale" />
 
 			<ImageView
-				android:id="@+id/imageView_Time"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
-				android:layout_marginBottom="4dp"
-				android:src="@drawable/ic_baseline_access_time_24"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="@+id/guideline2" />
+					android:id="@+id/imageView_Time"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="4dp"
+					android:layout_marginBottom="4dp"
+					android:src="@drawable/ic_baseline_access_time_24"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
 			<TextView
-				android:id="@+id/textView_Date"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="4dp"
-				android:text="Time"
-				android:textColor="@color/white"
-				app:layout_constraintBottom_toBottomOf="@id/imageView_Date"
-				app:layout_constraintStart_toEndOf="@+id/imageView_Date"
-				app:layout_constraintTop_toTopOf="@id/imageView_Date" />
+					android:id="@+id/textView_Date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="4dp"
+					android:text="Time"
+					android:textColor="@color/white"
+					app:layout_constraintBottom_toBottomOf="@id/imageView_Date"
+					app:layout_constraintStart_toEndOf="@+id/imageView_Date"
+					app:layout_constraintTop_toTopOf="@id/imageView_Date" />
 
 			<ImageView
-				android:id="@+id/imageView_Date"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginTop="4dp"
-				android:layout_marginBottom="4dp"
-				android:src="@drawable/ic_baseline_calendar_month_24"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/imageView_Time" />
+					android:id="@+id/imageView_Date"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="4dp"
+					android:layout_marginBottom="4dp"
+					android:src="@drawable/ic_baseline_calendar_month_24"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/imageView_Time" />
 
 			<TextView
-				android:id="@+id/textView_time"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_marginStart="4dp"
-				android:text="Time"
-				android:textColor="@color/white"
-				app:layout_constraintBottom_toBottomOf="@+id/imageView_Time"
-				app:layout_constraintStart_toEndOf="@+id/imageView_Time"
-				app:layout_constraintTop_toTopOf="@+id/imageView_Time" />
+					android:id="@+id/textView_time"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginStart="4dp"
+					android:text="Time"
+					android:textColor="@color/white"
+					app:layout_constraintBottom_toBottomOf="@+id/imageView_Time"
+					app:layout_constraintStart_toEndOf="@+id/imageView_Time"
+					app:layout_constraintTop_toTopOf="@+id/imageView_Time" />
 
 			<com.google.android.material.button.MaterialButton
-				android:id="@+id/materialButton"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:background="?android:attr/selectableItemBackground"
-				android:hint="Share"
-				android:textColorHint="?attr/colorSecondary"
-				app:icon="@drawable/ic_baseline_share_24"
-				app:iconTint="?attr/colorSecondary"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHorizontal_bias="0.5"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@+id/textView_Date" />
+					android:id="@+id/materialButton"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:background="?android:attr/selectableItemBackground"
+					android:hint="Share"
+					android:textColorHint="?attr/colorSecondary"
+					app:icon="@drawable/ic_baseline_share_24"
+					app:iconTint="?attr/colorSecondary"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.5"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/textView_Date" />
 
 		</androidx.constraintlayout.widget.ConstraintLayout>
 

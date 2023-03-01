@@ -18,7 +18,6 @@ public class InputValidator extends SearchFragment {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -30,7 +29,6 @@ public class InputValidator extends SearchFragment {
 				return false;
 			}
 		}
-
 		return true;
 	}
 
@@ -38,13 +36,12 @@ public class InputValidator extends SearchFragment {
 		if (!minMagnitude.equals("") && !maxMagnitude.equals("")) {
 			double min = Double.parseDouble(minMagnitude);
 			double max = Double.parseDouble(maxMagnitude);
-
 			if (min > max) {
 				textInputEditTextMaxMagnitude.setError("Maximum magnitude has to be greater than or equal to minimum magnitude");
 				return false;
 			}
 		}
-
 		return true;
 	}
+
 }
