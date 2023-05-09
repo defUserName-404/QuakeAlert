@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto">
+		xmlns:app="http://schemas.android.com/apk/res-auto">
 	<item
-		android:id="@+id/searchMenuItem"
-		android:icon="@drawable/ic_baseline_search_24"
-		android:iconTint="?attr/colorOnPrimary"
-		android:onClick="onSearchMenuClicked"
-		android:title="Search"
-		app:showAsAction="always" />
+			android:id="@+id/searchMenuItem"
+			android:icon="@drawable/ic_baseline_search_24"
+			android:iconTint="?attr/colorOnPrimary"
+			android:onClick="onSearchMenuClicked"
+			android:title="Search"
+			app:showAsAction="always" />
 	<item
-		android:id="@+id/settingsMenuItem"
-		android:icon="@drawable/ic_baseline_settings_24"
-		android:iconTint="?attr/colorOnPrimary"
-		android:title="Settings"
-		app:showAsAction="ifRoom" />
+			android:id="@+id/settingsMenuItem"
+			android:icon="@drawable/ic_baseline_settings_24"
+			android:iconTint="?attr/colorOnPrimary"
+			android:title="Settings"
+			app:showAsAction="ifRoom" />
 </menu>

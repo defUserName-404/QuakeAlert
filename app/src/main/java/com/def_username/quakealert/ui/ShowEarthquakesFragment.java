@@ -21,7 +21,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class ShowEarthquakesFragment extends Fragment {
-
+	
 	private static boolean IMPLEMENT_SCROLL_LISTENER_FLAG = false;
 	private final Coordinate coordinate;
 	private final MagnitudeRange magnitudeRange;
@@ -45,19 +45,16 @@ public class ShowEarthquakesFragment extends Fragment {
 		this.magnitudeRange = magnitudeRange;
 		this.dateRange = dateRange;
 		this.sortBy = sortBy;
-
 		IMPLEMENT_SCROLL_LISTENER_FLAG = true;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View rootView = inflater.inflate(R.layout.fragment_show_earthquakes, container, false);
-
 		if (IMPLEMENT_SCROLL_LISTENER_FLAG) {
 			mRecyclerView = rootView.findViewById(R.id.earthquakeList_recyclerview);
 			disableSearchAgainButtonWhileScrolling();
 		}
-
 		RequestProcessor requestProcessor = new RequestProcessor(rootView);
 		Request request = new Request(
 				coordinate,
@@ -66,25 +63,24 @@ public class ShowEarthquakesFragment extends Fragment {
 				sortBy
 		);
 		requestProcessor.sendRequest(request);
-
 		return rootView;
 	}
 
 	private void disableSearchAgainButtonWhileScrolling() {
 		mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
+			public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+				if (newState == RecyclerView.SCROLL_STATE_IDLE)
+					SearchActivity.extendedSearchAgainFloatingActionButton.show();
+				super.onScrollStateChanged(recyclerView, newState);
+			}
+
+			@Override
 			public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
 				if (dy > 0 || dy < 0 && SearchActivity.extendedSearchAgainFloatingActionButton.isShown())
 					SearchActivity.extendedSearchAgainFloatingActionButton.hide();
 			}
-
-			@Override
-			public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-				if (newState == RecyclerView.SCROLL_STATE_IDLE)
-					SearchActivity.extendedSearchAgainFloatingActionButton.show();
-
-				super.onScrollStateChanged(recyclerView, newState);
-			}
 		});
 	}
+
 }

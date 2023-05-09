@@ -16,4 +16,5 @@ public class DateRange {
 	public String getEndDate() {
 		return endDate;
 	}
+
 }

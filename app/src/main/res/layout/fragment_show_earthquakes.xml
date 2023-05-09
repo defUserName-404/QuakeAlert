@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:id="@+id/showEarthquakesFragment"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	tools:context=".ui.ShowEarthquakesFragment">
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/showEarthquakesFragment"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		tools:context=".ui.ShowEarthquakesFragment">
 
 	<com.google.android.material.progressindicator.LinearProgressIndicator
-		android:id="@+id/ProgressIndicator_NetworkConnectivity"
-		android:layout_width="match_parent"
-		android:layout_height="5dp"
-		android:layout_marginTop="10dp"
-		android:contentDescription="@string/loading_data_from_the_network"
-		android:indeterminate="true"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent" />
+			android:id="@+id/ProgressIndicator_NetworkConnectivity"
+			android:layout_width="match_parent"
+			android:layout_height="5dp"
+			android:layout_marginTop="10dp"
+			android:contentDescription="@string/loading_data_from_the_network"
+			android:indeterminate="true"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent" />
 
 	<androidx.recyclerview.widget.RecyclerView
-		android:id="@+id/earthquakeList_recyclerview"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/ProgressIndicator_NetworkConnectivity" />
+			android:id="@+id/earthquakeList_recyclerview"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/ProgressIndicator_NetworkConnectivity" />
 
 	<ImageView
-		android:id="@+id/imageView_NothingFound"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/icons8_nothing_found_96"
-		android:visibility="gone"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.4" />
+			android:id="@+id/imageView_NothingFound"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/icons8_nothing_found_96"
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.4" />
 
 	<TextView
-		android:id="@+id/textView_NothingFound"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="No earthquake data found in last 24 hours."
-		android:visibility="gone"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/imageView_NothingFound" />
+			android:id="@+id/textView_NothingFound"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="No earthquake data found in last 24 hours."
+			android:visibility="gone"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/imageView_NothingFound" />
 
 	<ImageView
-		android:id="@+id/imageView_NetworkError"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:src="@drawable/icons8_sad_cloud_100"
-		android:visibility="gone"
-		app:layout_constraintBottom_toBottomOf="parent"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toTopOf="parent"
-		app:layout_constraintVertical_bias="0.4" />
+			android:id="@+id/imageView_NetworkError"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:src="@drawable/icons8_sad_cloud_100"
+			android:visibility="gone"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintVertical_bias="0.4" />
 
 	<TextView
-		android:id="@+id/textView_NetworkError"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:text="Please check your network"
-		android:visibility="gone"
-		app:layout_constraintEnd_toEndOf="parent"
-		app:layout_constraintStart_toStartOf="parent"
-		app:layout_constraintTop_toBottomOf="@+id/imageView_NetworkError" />
+			android:id="@+id/textView_NetworkError"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Please check your network"
+			android:visibility="gone"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/imageView_NetworkError" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

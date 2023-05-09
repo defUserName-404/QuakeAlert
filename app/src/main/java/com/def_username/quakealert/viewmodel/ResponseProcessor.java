@@ -32,14 +32,11 @@ public class ResponseProcessor implements ShowEarthquakeAdapter.OnEarthquakeList
 	public void onResponseReceived(JSONObject response) {
 		RecyclerView recyclerView = root.getRootView().findViewById(R.id.earthquakeList_recyclerview);
 		EarthquakeDataParser.setSampleJsonResponse(response);
-
 		earthquakeList = EarthquakeDataParser.extractEarthquakes();
-
 		ShowEarthquakeAdapter showEarthquakeAdapter =
 				new ShowEarthquakeAdapter(earthquakeList, this);
 		recyclerView.setAdapter(showEarthquakeAdapter);
 		recyclerView.setLayoutManager(new LinearLayoutManager(root.getContext()));
-
 		if (earthquakeList.size() == 0) {
 			root.findViewById(R.id.imageView_NothingFound).setVisibility(View.VISIBLE);
 			root.findViewById(R.id.textView_NothingFound).setVisibility(View.VISIBLE);
@@ -76,7 +73,6 @@ public class ResponseProcessor implements ShowEarthquakeAdapter.OnEarthquakeList
 		String primaryLocation = EarthquakeDataParser.formatLocation(originalLocation)[0];
 		String locationOffset = EarthquakeDataParser.formatLocation(originalLocation)[1];
 		double[] coordinate = earthquake.getCoordinates();
-
 		bundle.putString("LOCATION_OFFSET", locationOffset);
 		bundle.putString("LOCATION_NAME", primaryLocation);
 		bundle.putString("SCALE", magnitude);
@@ -85,4 +81,5 @@ public class ResponseProcessor implements ShowEarthquakeAdapter.OnEarthquakeList
 		intent.putExtras(bundle);
 		context.startActivity(intent);
 	}
+
 }

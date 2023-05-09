@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class SearchActivityTest {
+
 	@Test
 	public void getSortMethodTestCase1() {
 		SearchActivityMock.setSortMethod("time", "asc");
@@ -31,9 +32,11 @@ public class SearchActivityTest {
 		String returned = SearchActivityMock.getSortMethod();
 		Assert.assertEquals("magnitude", returned);
 	}
+
 }
 
 class SearchActivityMock {
+
 	private static String sortByCategory = "", sortByOrder = "";
 
 	public static String getSortMethod() {
@@ -44,4 +47,5 @@ class SearchActivityMock {
 		sortByCategory = s1;
 		sortByOrder = s2;
 	}
+	
 }

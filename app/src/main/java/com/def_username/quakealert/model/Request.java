@@ -2,7 +2,7 @@ package com.def_username.quakealert.model;
 
 public class Request {
 
-	private final  Coordinate coordinate;
+	private final Coordinate coordinate;
 	private final MagnitudeRange magnitudeRange;
 	private final DateRange dateRange;
 	private final String sortBy;
@@ -29,4 +29,5 @@ public class Request {
 	public String getSortBy() {
 		return sortBy;
 	}
+
 }

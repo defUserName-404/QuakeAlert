@@ -12,8 +12,8 @@ import com.def_username.quakealert.R;
 import com.def_username.quakealert.model.Coordinate;
 import com.def_username.quakealert.model.DateRange;
 import com.def_username.quakealert.model.MagnitudeRange;
-import com.def_username.quakealert.util.InputValidator;
 import com.def_username.quakealert.util.EarthquakeDataParser;
+import com.def_username.quakealert.util.InputValidator;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.textfield.TextInputEditText;
@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.Objects;
 
 public class SearchFragment extends Fragment {
+	
 	private static final short ANIMATION_DURATION = 200;
 	protected static TextInputEditText textInputEditTextLocation,
 			textInputEditTextDate, textInputEditTextMinMagnitude, textInputEditTextMaxMagnitude;
@@ -34,16 +35,13 @@ public class SearchFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 		MaterialButton mButtonSearchEarthquakes = rootView.findViewById(R.id.mButton_SearchEarthquakes);
 		initializeViews(rootView);
-
-		MaterialDatePicker<Pair<Long, Long>> rangedDatePicker = MaterialDatePicker.Builder
+		MaterialDatePicker<Pair<Long,Long>> rangedDatePicker = MaterialDatePicker.Builder
 				.dateRangePicker()
 				.setSelection(Pair.create(MaterialDatePicker.thisMonthInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
 				.setTitleText("Select Date Range")
 				.build();
-
 		mButtonSearchEarthquakes.setOnClickListener(listener -> {
 			extractAndSendSearchRequest();
-
 			if (InputValidator.validateInput()) {
 				sortBy = SearchActivity.getSortMethod();
 				searchResultsFragment = new ShowEarthquakesFragment(
@@ -52,19 +50,15 @@ public class SearchFragment extends Fragment {
 						new DateRange(startDate, endDate),
 						sortBy
 				);
-
 				requireActivity().getSupportFragmentManager()
 						.beginTransaction()
 						.hide(SearchActivity.searchContainerFragment)
 						.add(R.id.fragmentContainer, searchResultsFragment)
 						.setReorderingAllowed(true)
 						.commit();
-
 				setSearchAgainButtonVisibility(View.VISIBLE);
-
 				SearchActivity.extendedSearchAgainFloatingActionButton.setOnClickListener(lst -> {
 					setSearchAgainButtonVisibility(View.GONE);
-
 					requireActivity().getSupportFragmentManager()
 							.beginTransaction()
 							.remove(searchResultsFragment)
@@ -75,17 +69,14 @@ public class SearchFragment extends Fragment {
 				});
 			}
 		});
-
 		textInputEditTextDate.setOnClickListener(listener -> {
 			rangedDatePicker.show(requireActivity().getSupportFragmentManager(), "Material Ranged Date Picker");
 			rangedDatePicker.addOnPositiveButtonClickListener(selection -> {
 				startTime = selection.first;
 				endTime = selection.second;
-
 				textInputEditTextDate.setText(rangedDatePicker.getHeaderText());
 			});
 		});
-
 		return rootView;
 	}
 
@@ -110,4 +101,5 @@ public class SearchFragment extends Fragment {
 		SearchActivity.extendedSearchAgainFloatingActionButton.postDelayed(() ->
 				SearchActivity.extendedSearchAgainFloatingActionButton.setVisibility(visibility), ANIMATION_DURATION);
 	}
+
 }
