@@ -7,9 +7,6 @@ import android.os.Build;
 
 public class Notification extends Application {
 
-	private final String CHANNEL_ID = "1";
-	private final String CHANNEL_NAME = "Currently occurring earthquakes";
-
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -18,6 +15,8 @@ public class Notification extends Application {
 
 	private void createNotificationChannel() {
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			String CHANNEL_ID = "1";
+			String CHANNEL_NAME = "Currently occurring earthquakes";
 			NotificationChannel channel = new NotificationChannel(
 					CHANNEL_ID,
 					CHANNEL_NAME,

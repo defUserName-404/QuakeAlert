@@ -125,13 +125,6 @@ public class EarthquakeDataParser {
 		int magnitudeColorResourceId;
 		int magnitudeFloor = (int) Math.floor(magnitude);
 		switch (magnitudeFloor) {
-			case 0:
-			case 1:
-				magnitudeColorResourceId = Color.parseColor("#4A7BA7");
-				break;
-			case 2:
-				magnitudeColorResourceId = Color.parseColor("#04B4B3");
-				break;
 			case 3:
 				magnitudeColorResourceId = Color.parseColor("#10CAC9");
 				break;
